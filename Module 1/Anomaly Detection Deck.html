@@ -78,10 +78,40 @@
   .mod h4{font-family:var(--display);font-size:calc(var(--fs)*.92);margin:.6vh 0;
     line-height:1.1}
   .mod p{font-size:calc(var(--fs)*.72);color:var(--muted);line-height:1.35}
+  /* speakers */
+  .face{position:relative;aspect-ratio:1;width:min(100%,24vh);margin-bottom:1.6vh;
+    background:var(--panel2);border:1px solid var(--line);border-radius:4px;overflow:hidden;
+    display:grid;place-items:center;font-family:var(--display);font-size:calc(var(--fs)*1.6);color:var(--muted)}
+  .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .spk h4{font-family:var(--display);font-size:calc(var(--fs)*1.1);line-height:1.1}
+  .spk .role{font-size:calc(var(--fs)*.78);color:var(--muted);margin:.4vh 0 1vh}
+  .spk .cred{font-size:calc(var(--fs)*.84);line-height:1.35}
+  /* history figures (third-party images on white, credited below) */
+  figure{justify-self:center}
+  figure img{display:block;max-width:100%;max-height:50vh;background:#fff;
+    border-radius:4px;padding:1vh}
+  figcaption{font-size:calc(var(--fs)*.55);color:var(--muted);margin-top:.6vh;max-width:60ch}
+  /* agenda */
+  .agenda{list-style:none;counter-reset:ch;display:flex;flex-direction:column;gap:1.3vh}
+  .agenda li{counter-increment:ch;padding-left:1.6em;max-width:none}
+  .agenda li::before{content:counter(ch);background:none;transform:none;width:auto;height:auto;
+    top:0;font-family:var(--mono);color:var(--amber)}
+  .agenda li span{color:var(--muted)}
   .mod.today{border-top-color:var(--amber);background:#13283a}
   .mod.today .mn{color:var(--amber)}
   .todaytag{position:absolute;top:-1.1em;right:.6vw;font-family:var(--mono);
     font-size:calc(var(--fs)*.62);color:var(--amber);letter-spacing:.1em}
+  /* literature */
+  .refs p{font-size:calc(var(--fs)*.7);line-height:1.35;margin-top:1.4vh}
+  .refs p+p{margin-top:3.2vh}
+  .refs .src{color:var(--muted)}
+  /* lab pipeline stages */
+  .stages{display:flex;gap:.8vw;list-style:none;margin:0 0 1.2vh}
+  .stages li{flex:1;padding:.6vh 0 0;border-top:3px solid var(--line);font-family:var(--mono);
+    font-size:calc(var(--fs)*.72);color:var(--muted);max-width:none;transition:color .3s,border-color .3s}
+  .stages li::before{content:none}
+  .stages li.done{color:var(--ink);border-top-color:var(--trace)}
+  .stages li.on{color:var(--amber);border-top-color:var(--amber)}
   /* interactive */
   .interactive{margin-top:1vh}
   canvas{width:100%;height:auto;background:#061119;border:1px solid var(--line);
@@ -139,28 +169,45 @@
   <p class="muted" style="margin-top:3vh">Eduard Stan — Dell Technologies<br>eduard.stan@dell.com</p>
 </section>
 
-<!-- 2 ROADMAP -->
-<section class="slide" data-notes="Orient them in the week. We start today at Module 1. Each module climbs the same ladder: classical → sequential → deep → attention → evaluation + project.">
-  <div class="chan">COURSE MAP · <b>5 modules across the week</b></div>
-  <h2>Where today sits</h2>
-  <div class="road">
-    <div class="mod today"><span class="todaytag">▸ today</span><div class="mn">Module 1</div><h4>Classical models on tabular data</h4><p>Isolation Forest, LOF, OC-SVM · the metrics trap · Credit Card Fraud.</p></div>
-    <div class="mod"><div class="mn">Module 2</div><h4>From tabular to sequential</h4><p>Contextual &amp; collective anomalies · windowed features on time series.</p></div>
-    <div class="mod"><div class="mn">Module 3</div><h4>Deep learning</h4><p>Reconstruction with autoencoders · error as an anomaly score.</p></div>
-    <div class="mod"><div class="mn">Module 4</div><h4>Sequence models &amp; attention</h4><p>LSTM-autoencoder + attention on SWaT — our research.</p></div>
-    <div class="mod"><div class="mn">Module 5</div><h4>Robust evaluation &amp; project</h4><p>No-label evaluation · concept drift · project kickoff.</p></div>
+<!-- 1b SPEAKERS -->
+<section class="slide" data-notes="Each speaker introduces themselves in ~20 seconds. Photos load from img/; a missing photo falls back to initials.">
+  <div class="chan">TODAY'S SPEAKERS · <b>Dell Technologies</b></div>
+  <h2>Who's teaching you today</h2>
+  <div class="grid3">
+    <div class="panel spk"><div class="face">ES<img src="img/eduard-stan.jpg" alt="Eduard Stan" onerror="this.remove()"></div>
+      <h4>Eduard Stan</h4><p class="role">Data Scientist, Dell Technologies</p><p class="cred">CERN alumnus</p></div>
+    <div class="panel spk"><div class="face">OS<img src="img/oana-sirbu.jpg" alt="Oana Sîrbu" onerror="this.remove()"></div>
+      <h4>Oana Sîrbu</h4><p class="role">Data Scientist, Dell Technologies</p><p class="cred">Latest paper nominated for Best Student Paper at Interspeech 2026</p></div>
+    <div class="panel spk"><div class="face">LC<img src="img/luiza-ciucu.jpg" alt="Luiza Ciucu" onerror="this.remove()"></div>
+      <h4>Luiza Ciucu</h4><p class="role">Data Scientist, Dell Technologies</p><p class="cred">Former research assistant at DESY and CERN</p></div>
   </div>
 </section>
 
+<!-- 2 ROADMAP -->
+<section class="slide" data-notes="Orient them in the week. Placeholder: update once the final course map is agreed.">
+  <div class="chan">COURSE MAP · <b>to be confirmed</b></div>
+  <h2>Where today sits</h2>
+  <div class="road">
+    <!-- PLACEHOLDER: fill in once the final course map is agreed -->
+    <div class="mod today"><span class="todaytag">▸ today</span><div class="mn">Module 1</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
+    <div class="mod"><div class="mn">Module 2</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
+    <div class="mod"><div class="mn">Module 3</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
+    <div class="mod"><div class="mn">Module 4</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
+    <div class="mod"><div class="mn">Module 5</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
+  </div>
+  <p class="small" style="margin-top:2vh">Placeholder: the final course map will be added here.</p>
+</section>
+
 <!-- 3 OBJECTIVES -->
-<section class="slide" data-notes="State today's learning objectives. All four are exercised in the Module 1 lab right after this block.">
+<section class="slide" data-notes="State today's learning objectives. The detector, metric and threshold objectives are exercised in the Module 1 lab right after this block.">
   <div class="chan">MODULE 1 · <b>today's objectives</b></div>
   <h2>By the end of this block you can…</h2>
   <div class="two">
     <ul>
       <li>Classify an anomaly as <b>point, contextual, or collective</b></li>
       <li>Explain why <b>accuracy is useless</b> on imbalanced data</li>
-      <li>Train and compare <b>Isolation Forest vs. LOF</b></li>
+      <li>Place today's detectors in the <b>history</b> of the field</li>
+      <li>Train and compare <b>two classical detectors</b></li>
       <li>Tune a <b>threshold</b> to balance precision and recall</li>
     </ul>
     <div class="panel amber">
@@ -170,9 +217,23 @@
   </div>
 </section>
 
-<!-- 4 PART 1 -->
-<section class="slide divider" data-notes="<b>0:05 Part 1.</b> ~10 min taxonomy — the backbone of the week.">
-  <div class="num">Part 1 — Foundations</div>
+<!-- AGENDA -->
+<section class="slide" data-notes="Signpost the whole hour: four chapters of ideas, then the lab chapter that puts them together. Each chapter's divider repeats its number so students always know where they are.">
+  <div class="chan">TODAY · <b>five chapters</b></div>
+  <h2>How today is organised</h2>
+  <ol class="agenda">
+    <li><b>Foundations</b> <span>— what counts as an anomaly</span></li>
+    <li><b>History</b> <span>— how detection methods evolved</span></li>
+    <li><b>From types to models</b> <span>— choosing a detector</span></li>
+    <li><b>Evaluation</b> <span>— how we know a detector works</span></li>
+    <li><b>The lab</b> <span>— one pipeline, any dataset</span></li>
+  </ol>
+  <p class="muted" style="margin-top:2.4vh">Then: takeaways, and you open the notebook.</p>
+</section>
+
+<!-- CH1 DIVIDER -->
+<section class="slide divider" data-notes="<b>0:05 Chapter 1.</b> ~12 min: definition, three types, two quiz pulses.">
+  <div class="num">Chapter 1 / 5 — Foundations</div>
   <h1>What counts as an anomaly</h1>
 </section>
 
@@ -244,7 +305,7 @@
 </section>
 
 <!-- 9 INTERACTIVE SPOT #1 -->
-<section class="slide" data-notes="<b>0:15–0:17 Pulse #1.</b> Cold-call, then let a student click the type. Whale = point; Impossible Traveler = contextual. Keep to 2 min.">
+<section class="slide" data-notes="<b>Pulse #1.</b> Cold-call, then let a student click the type. Whale = point; Impossible Traveler = contextual. Keep to 2 min.">
   <div class="chan">SPOT THE ANOMALY · <b>pulse 1 — click the type</b></div>
   <h2>Point, contextual, or collective?</h2>
   <div class="two" style="grid-template-columns:1fr 1fr">
@@ -263,22 +324,29 @@
   </div>
 </section>
 
-<!-- 10 BRIDGE taxonomy->model -->
-<section class="slide" data-notes="<b>Bridge.</b> The theory→practice hinge: each type points to a model. Refer back to this during the lab.">
-  <div class="chan">THE BRIDGE TO THE LAB</div>
-  <h2>Each type points to a model</h2>
-  <table>
-    <tr><th>Anomaly type</th><th>What catches it</th><th>Why</th></tr>
-    <tr><td><span class="tag t-pt">point</span></td><td class="map">Isolation Forest · LOF</td><td>deviation in feature space, no time needed</td></tr>
-    <tr><td><span class="tag t-ctx">contextual</span></td><td class="map">LOF · reconstruction models</td><td>normal vs. local / temporal context</td></tr>
-    <tr><td><span class="tag t-col">collective</span></td><td class="map">autoencoders · sequence models</td><td>pattern over many steps</td></tr>
-  </table>
-  <p class="muted" style="margin-top:2.4vh">You build the left two columns in Module 1; the third shows up in our research.</p>
+<!-- 24 INTERACTIVE SPOT #2 -->
+<section class="slide" data-notes="<b>Pulse #2.</b> The harder two, right after the easy pair. Umbrellas = contextual (season); brute force = collective (the sequence).">
+  <div class="chan">SPOT THE ANOMALY · <b>pulse 2 — the harder two</b></div>
+  <h2>Click the type</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr">
+    <div class="scenario" data-answer="contextual" data-ok="Correct — 200 is normal for rainy November, anomalous for sunny July." data-no="The number itself is ordinary — what makes it wrong here?">
+      <h3>The "Sunny Day" umbrellas</h3>
+      <p>A store sells 200 umbrellas — normal for a rainy November Tuesday, but this was a hot, sunny July Tuesday.</p>
+      <div class="choices interactive"><button data-type="point">point</button><button data-type="contextual">contextual</button><button data-type="collective">collective</button></div>
+      <div class="qstatus"></div>
+    </div>
+    <div class="scenario" data-answer="collective" data-ok="Correct — one failure is fine; the 500-in-60s sequence is the anomaly." data-no="A single failed login is normal — it's the group that matters.">
+      <h3>The "Brute Force" login</h3>
+      <p>One failed password is normal. But 500 failures in 60 seconds?</p>
+      <div class="choices interactive"><button data-type="point">point</button><button data-type="contextual">contextual</button><button data-type="collective">collective</button></div>
+      <div class="qstatus"></div>
+    </div>
+  </div>
 </section>
 
-<!-- 11 PART 2 -->
-<section class="slide divider" data-notes="<b>0:17 Part 2.</b> ~15 min. Each era trades an assumption for flexibility.">
-  <div class="num">Part 2 — Evolution of methods</div>
+<!-- CH2 DIVIDER -->
+<section class="slide divider" data-notes="<b>0:17 Chapter 2.</b> ~8 min. Each era trades an assumption for flexibility. Only now do models get named.">
+  <div class="num">Chapter 2 / 5 — History</div>
   <h1>Assumptions traded for flexibility</h1>
 </section>
 
@@ -287,12 +355,13 @@
   <div class="chan">ERA 1 · <b>1980s–90s</b></div>
   <h2>Statistical &amp; probabilistic</h2>
   <div class="two">
-    <ul><li><b>Assumption:</b> data follows a distribution (e.g. Gaussian)</li>
+    <div><ul><li><b>Assumption:</b> data follows a distribution (e.g. Gaussian)</li>
       <li>Z-score / 3-sigma rule — flag when
         <math><mrow><mo stretchy="false">|</mo><mi>z</mi><mo stretchy="false">|</mo><mo>=</mo><mfrac><mrow><mo stretchy="false">|</mo><mi>x</mi><mo>−</mo><mi>μ</mi><mo stretchy="false">|</mo></mrow><mi>σ</mi></mfrac><mo>&gt;</mo><mn>3</mn></mrow></math></li>
       <li>Boxplots (interquartile range)</li></ul>
-    <div class="panel"><h3>Pro</h3><p>Simple, interpretable.</p>
-      <h3>Con</h3><p>Fails when data isn't that distribution, or is high-dimensional.</p></div>
+      <p style="margin-top:2.2vh"><b class="good">Pro:</b> simple, interpretable.<br><b class="bad">Con:</b> fails when data isn't that distribution, or is high-dimensional.</p></div>
+    <figure><img src="img/history/era1-boxplot-vs-gaussian.svg" alt="A boxplot aligned above a Gaussian curve, showing the interquartile range and whiskers against standard deviations">
+      <figcaption>Boxplot vs. Gaussian. Jhguch / Chen-Pan Liao, Wikimedia Commons, CC BY-SA 2.5</figcaption></figure>
   </div>
 </section>
 
@@ -300,25 +369,53 @@
 <section class="slide" data-notes="Era 2 assumption: normal data clusters / is dense. LOF and Isolation Forest are the Module 1 lab.">
   <div class="chan">ERA 2 · <b>2000s</b></div>
   <h2>Classical machine learning</h2>
-  <ul>
-    <li><b>Proximity:</b> k-NN (far from neighbors) · LOF (local density vs. neighbors)</li>
-    <li><b>Boundary:</b> One-Class SVM learns a boundary around "normal"</li>
-    <li><b>Ensemble:</b> Isolation Forest — random splits isolate anomalies <i>faster</i></li>
-  </ul>
-  <p class="muted" style="margin-top:2.2vh">Traded: no fixed distribution — but normal data must cluster / be dense. <b>LOF and Isolation Forest are your lab.</b></p>
+  <div class="two">
+    <div><ul>
+      <li><b>Proximity:</b> k-NN (far from neighbors) · LOF (local density vs. neighbors)</li>
+      <li><b>Boundary:</b> One-Class SVM learns a boundary around "normal"</li>
+      <li><b>Ensemble:</b> Isolation Forest — random splits isolate anomalies <i>faster</i></li>
+    </ul>
+    <p class="muted" style="margin-top:2.2vh">Traded: no fixed distribution — but normal data must cluster / be dense. <b>You'll train detectors from this era in the lab.</b></p></div>
+    <figure><img src="img/history/era2-sklearn-anomaly-comparison.png" alt="Grid of five detectors on five toy datasets; each draws a different boundary around normal points">
+      <figcaption>Same data, different detectors, different boundaries. scikit-learn docs, BSD-3-Clause</figcaption></figure>
+  </div>
 </section>
 
 <!-- 14 ERA3 -->
 <section class="slide" data-notes="Era 3 assumption: normality is a learnable manifold. Needed for unstructured / high-dim data.">
   <div class="chan">ERA 3 · <b>2015–present</b></div>
   <h2>Deep learning &amp; modern approaches</h2>
-  <ul>
-    <li><b>Why:</b> unstructured data (images, audio, logs) + the curse of dimensionality</li>
-    <li><b>Reconstruction:</b> autoencoders rebuild "normal" — the error is the anomaly score
-      <math><mrow><mi>s</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mrow><mo>‖</mo><mi>x</mi><mo>−</mo><mover><mi>x</mi><mo>^</mo></mover><mo>‖</mo></mrow><mn>2</mn></msup></mrow></math></li>
-    <li><b>Generative:</b> GANs — anomalies look "fake" to the discriminator</li>
-  </ul>
-  <p class="muted" style="margin-top:2.2vh">Traded: normality becomes a <b>learnable manifold</b>.</p>
+  <div class="two">
+    <div><ul>
+      <li><b>Why:</b> unstructured data (images, audio, logs) + the curse of dimensionality</li>
+      <li><b>Reconstruction:</b> autoencoders rebuild "normal" — the error is the anomaly score
+        <math><mrow><mi>s</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mrow><mo>‖</mo><mi>x</mi><mo>−</mo><mover><mi>x</mi><mo>^</mo></mover><mo>‖</mo></mrow><mn>2</mn></msup></mrow></math></li>
+      <li><b>Generative:</b> GANs — anomalies look "fake" to the discriminator</li>
+    </ul>
+    <p class="muted" style="margin-top:2.2vh">Traded: normality becomes a <b>learnable manifold</b>.</p></div>
+    <figure><img src="img/history/era3-autoencoder.png" alt="Autoencoder: input X is encoded into a smaller code h, then decoded into a reconstruction X′">
+      <figcaption>Autoencoder schema. Michela Massi, Wikimedia Commons, CC BY-SA 4.0</figcaption></figure>
+  </div>
+</section>
+
+<!-- CH3 DIVIDER -->
+<section class="slide divider" data-notes="<b>0:25 Chapter 3.</b> ~4 min. Now that they know the methods, map anomaly types to them.">
+  <div class="num">Chapter 3 / 5 — From types to models</div>
+  <h1>Which detector for which anomaly?</h1>
+</section>
+
+<!-- 10 BRIDGE taxonomy->model -->
+<section class="slide" data-notes="<b>Bridge.</b> The theory→practice hinge: each type points to a model. Refer back to this during the lab. Stress the caveat: this is a starting point, not a rule — the same anomaly type in two use cases can favour very different models, so always benchmark on your own data.">
+  <div class="chan">THE BRIDGE TO THE LAB</div>
+  <h2>Each type points to a model</h2>
+  <table>
+    <tr><th>Anomaly type</th><th>What catches it</th><th>Why</th></tr>
+    <tr><td><span class="tag t-pt">point</span></td><td class="map">Isolation Forest · LOF</td><td>deviation in feature space, no time needed</td></tr>
+    <tr><td><span class="tag t-ctx">contextual</span></td><td class="map">IF / LOF + context features · forecasting / reconstruction models</td><td>value vs. what's expected for that context (time, season, user)</td></tr>
+    <tr><td><span class="tag t-col">collective</span></td><td class="map">autoencoders · sequence models</td><td>pattern over many steps</td></tr>
+  </table>
+  <p class="muted" style="margin-top:2.4vh">You build the point-anomaly row in Module 1; the other two come later this week.</p>
+  <div class="panel amber" style="margin-top:2vh;align-self:flex-start"><p><b class="amb">A starting point, not a rule.</b> The right model depends on your use case and your data — the same anomaly type in two use cases can call for very different models. Benchmark on your own data.</p></div>
 </section>
 
 <!-- 15 BRIDGE chooser -->
@@ -332,21 +429,23 @@
   </div>
 </section>
 
-<!-- 16 EVAL LEAD -->
-<section class="slide divider" data-notes="Short lead-in. Before trusting any detector, how do we measure it? This is Module 1's 'capcana metricilor'.">
-  <div class="num">Module 1 — measuring detectors</div>
+<!-- CH4 DIVIDER -->
+<section class="slide divider" data-notes="<b>0:29 Chapter 4.</b> ~10 min. Before trusting any detector, how do we measure it? This is Module 1's 'capcana metricilor'. Read the roadmap aloud: each step builds on the one before.">
+  <div class="num">Chapter 4 / 5 — Evaluation</div>
   <h1>But how do we know it works?</h1>
+  <p class="muted" style="margin-top:3vh">The four outcomes → why accuracy lies → what a threshold is → choosing one → judging all of them at once</p>
 </section>
 
 <!-- 16b METRICS DEFINED -->
-<section class="slide" data-notes="Define the four numbers before the widgets use them. Anchor on the confusion-matrix terms: TP = caught anomaly, FP = false alarm, FN = missed anomaly. Precision = trust your alarms; recall = don't miss real problems; F1 = balance; PR-AUC = the honest summary across all thresholds under imbalance.">
-  <div class="chan">THE VOCABULARY · <b>four numbers that actually matter</b></div>
-  <h2>Precision, recall, F1, PR-AUC</h2>
-  <p class="muted" style="margin-bottom:1.6vh;font-size:calc(var(--fs)*.84)">
-    <b style="color:var(--trace)">TP</b> caught anomaly &nbsp;·&nbsp;
-    <b style="color:var(--amber)">FP</b> false alarm &nbsp;·&nbsp;
-    <b style="color:var(--alarm)">FN</b> missed anomaly</p>
-  <div class="grid3" style="grid-template-columns:1fr 1fr;gap:1.2vw 2vw">
+<section class="slide" data-notes="Start with the four possible outcomes of an alarm, then build three numbers from them before the widgets use them. TP = caught anomaly, FP = false alarm, FN = missed anomaly, TN = normal left alone. Precision = trust your alarms; recall = don't miss real problems; F1 = balance of the two. PR-AUC comes at the end of the chapter, once the threshold is clear.">
+  <div class="chan">THE VOCABULARY · <b>four outcomes, three numbers</b></div>
+  <h2>Precision, recall, F1</h2>
+  <p class="muted" style="margin-bottom:1.6vh;font-size:calc(var(--fs)*.84);max-width:none;display:grid;grid-template-columns:auto 1fr;gap:.2vh 3vw">
+    <span><b style="color:var(--trace)">TP</b> true positive: caught anomaly</span>
+    <span><b style="color:var(--amber)">FP</b> false positive: false alarm</span>
+    <span><b style="color:var(--alarm)">FN</b> false negative: missed anomaly</span>
+    <span><b>TN</b> true negative: normal, left alone</span></p>
+  <div class="grid3">
     <div class="panel"><h3>Precision</h3>
       <math class="eq"><mrow><mi>P</mi><mo>=</mo><mfrac><mrow><mi mathvariant="normal">TP</mi></mrow><mrow><mi mathvariant="normal">TP</mi><mo>+</mo><mi mathvariant="normal">FP</mi></mrow></mfrac></mrow></math>
       <p class="small">Of everything you flagged, how much was truly anomalous? — "can I trust my alarms?"</p></div>
@@ -356,14 +455,11 @@
     <div class="panel amber"><h3>F<sub>1</sub>-score</h3>
       <math class="eq"><mrow><msub><mi>F</mi><mn>1</mn></msub><mo>=</mo><mn>2</mn><mo>·</mo><mfrac><mrow><mi>P</mi><mo>·</mo><mi>R</mi></mrow><mrow><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow></math>
       <p class="small">The harmonic mean of the two — punishes ignoring either.</p></div>
-    <div class="panel amber"><h3>PR-AUC</h3>
-      <math class="eq"><mrow><msub><mtext>AUC</mtext><mrow><mi mathvariant="normal">PR</mi></mrow></msub><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><mi>P</mi><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo><mspace width="0.15em"></mspace><mi>d</mi><mi>r</mi></mrow></math>
-      <p class="small">Precision over recall across every threshold, as one area — the honest summary under heavy imbalance.</p></div>
   </div>
 </section>
 
 <!-- 17 INTERACTIVE metrics trap -->
-<section class="slide" data-notes="<b>The metrics trap.</b> Click 'Always normal' — 99.8% accuracy, catches zero fraud. Click 'Detector' — accuracy barely drops but it catches 80%. Accuracy hides everything; precision/recall/PR-AUC don't.">
+<section class="slide" data-notes="<b>The metrics trap.</b> Click 'Always normal' — 99.8% accuracy, catches zero fraud. Click 'Detector' — accuracy barely drops but it catches 80%. Accuracy hides everything; precision and recall don't. Close with: 'but these depend on where we draw the line — what is that line?'">
   <div class="chan">THE METRICS TRAP · <b>10,000 transactions, 20 are fraud</b></div>
   <h2>Accuracy lies on imbalanced data</h2>
   <div class="two">
@@ -390,12 +486,39 @@
   </div>
 </section>
 
+<!-- 17b WHAT IS THE THRESHOLD -->
+<section class="slide" data-notes="<b>What is the threshold?</b> The detector never says yes/no — it outputs a score. The threshold is the cut-off WE choose on that score; it is not learned during training. In 2D the score is a landscape over the feature plane and the threshold is one contour line of it: that line is the decision boundary. Drag the slider: lower = bigger alarm region, more false alarms; higher = smaller region, more misses. The slider here is a percentile: at 90 the top 10% of scores raise an alarm. That is exactly how scikit-learn's contamination parameter picks the cut-off in the lab (contamination=0.1 ≈ threshold 90). Next slide: the same cut-off, seen on the score axis.">
+  <div class="chan">THE THRESHOLD · <b>score in, decision out</b></div>
+  <h2>What exactly is the threshold?</h2>
+  <div class="two">
+    <ul>
+      <li>The detector's <b>output</b> is an <b>anomaly score</b> for every record: higher means more unusual.</li>
+      <li>The <b>threshold</b> is a cut-off <i>you</i> choose on that score: score ≥ threshold → <b class="amb">alarm</b>.</li>
+      <li>It is <b>not learned</b> from the data: it is your decision, often set as the share of anomalies you expect (scikit-learn's <code>contamination</code>), and the cut-off follows from that.</li>
+      <li><b>In 2D:</b> the score is a landscape over the features, and the threshold is one <b>contour line</b> of it — the decision boundary.</li>
+    </ul>
+    <div class="interactive">
+      <canvas id="th2d" width="600" height="400" aria-label="Two features plotted against each other; a shaded region and contour line show which records the threshold flags"></canvas>
+      <div class="controls">
+        <label>threshold</label><input id="th2dRange" type="range" min="1" max="99" value="90" style="width:min(18vw,240px)">
+        <span class="readout" style="margin:0">
+          <span><span class="k">caught </span><b id="t2TP" class="good">—</b></span>
+          <span><span class="k">false alarms </span><b id="t2FP" class="amb">—</b></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 18 INTERACTIVE threshold slider -->
-<section class="slide" data-notes="<b>Threshold slider.</b> Drag it. Low threshold = catch everything but drown in false positives (low precision). High = clean but miss frauds (low recall). There is no free threshold — this is exactly the lab's tuning step.">
+<section class="slide" data-notes="<b>Threshold slider.</b> Drag it. Low threshold = catch everything but drown in false positives (low precision). High = clean but miss frauds (low recall). There is no free threshold — this is exactly the lab's tuning step. Right panel: the same three numbers for every threshold; the dots ride along with the slider. Recall only falls, precision mostly rises, and F1 peaks near where they cross — that peak is a principled place to cut.">
   <div class="chan">SCORE DISTRIBUTIONS · <b>drag the threshold</b></div>
   <h2>There is no free threshold</h2>
   <div class="interactive">
-    <canvas id="thCanvas" width="900" height="300"></canvas>
+    <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:1.4vw">
+      <canvas id="thCanvas" width="900" height="300"></canvas>
+      <canvas id="thCurves" width="560" height="290" aria-label="Precision, recall and F1 plotted against the threshold, with a marker at the current threshold"></canvas>
+    </div>
     <div class="controls">
       <label>threshold</label><input id="thRange" type="range" min="0" max="100" value="50">
       <span class="readout" style="margin:0">
@@ -408,114 +531,107 @@
   </div>
 </section>
 
-<!-- 19 PART 3 -->
-<section class="slide divider" data-notes="<b>0:32 Part 3.</b> ~8 min. Condensed. Signpost as the project's reach goal.">
-  <div class="num">Part 3 — Our research</div>
-  <h1>Temporal attention autoencoders for IoT</h1>
+<!-- PR-AUC picture -->
+<section class="slide" id="aucSlide" data-notes="<b>PR-AUC as a picture.</b> Plays on entry. The dot is one threshold: one (recall, precision) pair, exactly what the previous slide showed. The animation sweeps the threshold from strict to loose; the dot traces the precision–recall curve and the area underneath fills in. That area is PR-AUC. 1.0 = perfect; the dashed line is a random detector, which scores about the share of anomalies. Use it to compare detectors before choosing a threshold. If someone expects a diagonal: that is the ROC baseline (TPR vs FPR). On a PR curve a random detector has precision = share of anomalies at every recall, so its baseline is flat.">
+  <div class="chan">PR-AUC · <b>one number for every threshold</b></div>
+  <h2>PR-AUC: area under the precision–recall curve</h2>
+  <div class="two">
+    <div><ul>
+      <li>One threshold gives one point: its <b class="good">recall</b> and <b class="amb">precision</b>.</li>
+      <li>Sweep the threshold from strict to loose and the points trace the <b>precision–recall curve</b>.</li>
+      <li><b>PR-AUC</b> is the shaded area under it. 1.0 is perfect; a random detector scores about the share of anomalies (dashed line).</li>
+      <li>It rates a detector <b>before</b> you pick a threshold, so use it to compare detectors.</li>
+    </ul>
+    <math class="eq" style="margin-top:2.4vh"><mrow><msub><mtext>AUC</mtext><mrow><mi mathvariant="normal">PR</mi></mrow></msub><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><mi>P</mi><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo><mspace width="0.15em"></mspace><mi>d</mi><mi>r</mi></mrow></math></div>
+    <div class="interactive">
+      <p class="small" style="margin-bottom:.8vh">Example data: <b id="aucData" style="color:var(--ink)">—</b></p>
+      <canvas id="aucCanvas" width="600" height="420" aria-label="Precision-recall curve traced by a moving dot as the threshold sweeps; the area under the curve is shaded and labelled PR-AUC"></canvas>
+      <div class="controls"><button class="ui" id="aucReplay">Replay</button>
+        <span class="readout" style="margin:0"><span><span class="k">PR-AUC </span><b id="aucVal">—</b></span></span></div>
+    </div>
+  </div>
 </section>
 
-<!-- 20 RESEARCH problem -->
-<section class="slide" data-notes="Industrial IoT sensors are noisy → false positives. Goal: unsupervised model that filters benign noise, catches early failure.">
-  <h2>Signal vs. noise in Industrial IoT</h2>
-  <p>Sensors emit massive, high-dimensional, <b>noisy</b> streams. Models over-react to benign operational noise → frequent <b>false alarms</b>.</p>
-  <p style="margin-top:2.2vh"><b>Objective:</b> a robust <i>unsupervised</i> model that filters background noise to catch genuine, <b>early-warning</b> signs of machine failure.</p>
+<!-- CH5 DIVIDER -->
+<section class="slide divider" data-notes="<b>0:37 Chapter 5.</b> ~6 min. Everything from chapters 1–4 becomes one pipeline you run in the notebook.">
+  <div class="num">Chapter 5 / 5 — The lab</div>
+  <h1>One pipeline, any dataset</h1>
 </section>
 
-<!-- 21 INTERACTIVE noise dial -->
-<section class="slide" data-notes="<b>IoT noise dial.</b> Raise the noise — a naive detector lights up with false alarms. Flip 'Attention ON' — the model focuses on the real slow drift and the false alarms collapse, the true fault still caught. This IS the research in one control.">
-  <div class="chan">SENSOR STREAM · <b>raise the noise, then turn attention on</b></div>
-  <h2>Why attention cuts false alarms</h2>
+<!-- LAB PIPELINE animation -->
+<section class="slide" id="pipeSlide" data-notes="<b>Pipeline animation.</b> Plays on entry. Narrate each stage as it lights up: explore (how rare?), prepare (scale + split), score (detector gives every record a score), threshold (where do we raise the alarm?), evaluate (caught vs. false alarms). Then click 'Try another dataset': same pipeline, different data, different result — the chapter 3 caveat in action.">
+  <div class="chan">THE LAB PIPELINE · <b>watch it run, then build it</b></div>
+  <h2>From raw records to honest metrics</h2>
+  <ol class="stages" id="pipeStages">
+    <li>Explore</li><li>Prepare</li><li>Score</li><li>Threshold</li><li>Evaluate</li>
+  </ol>
   <div class="interactive">
-    <canvas id="iotCanvas" width="900" height="280"></canvas>
-    <div class="controls">
-      <label>operational noise</label><input id="iotRange" type="range" min="0" max="100" value="55">
-      <button class="ui" id="iotAttn">Attention: OFF</button>
+    <canvas id="pipeCanvas" width="900" height="300" style="max-width:132vh" aria-label="Animation: records are explored, scaled, scored by a detector, collected into a score histogram, cut by a threshold, and evaluated"></canvas>
+    <p class="muted" id="pipeCap" style="margin-top:1vh;font-size:calc(var(--fs)*.84);min-height:1.5em" aria-live="polite"></p>
+    <div class="controls" style="margin-top:.6vh">
+      <button class="ui" id="pipeReplay">Replay</button>
+      <button class="ui" id="pipeNew">Try another dataset</button>
       <span class="readout" style="margin:0">
-        <span><span class="k">false alarms </span><b id="iotFP" class="bad">—</b></span>
-        <span><span class="k">real fault </span><b id="iotHit">—</b></span>
+        <span><span class="k">caught </span><b id="pcTP" class="good">—</b></span>
+        <span><span class="k">missed </span><b id="pcFN" class="bad">—</b></span>
+        <span><span class="k">false alarms </span><b id="pcFP" class="amb">—</b></span>
+        <span><span class="k">precision </span><b id="pcP">—</b></span>
+        <span><span class="k">recall </span><b id="pcR">—</b></span>
+        <span><span class="k">F1 </span><b id="pcF1">—</b></span>
       </span>
     </div>
   </div>
 </section>
 
-<!-- 22 HYBRID -->
-<section class="slide" data-notes="Hybrid LSTM-AE + attention. AE reconstructs normal; LSTM handles sequence; attention focuses on critical steps.">
-  <h2>A hybrid LSTM-autoencoder with attention</h2>
+<!-- LAB STRUCTURE -->
+<section class="slide" data-notes="How the notebook is organised, kept general on purpose. The instructor and student notebooks share one structure; the instructor one has the solutions filled in.">
+  <div class="chan">THE NOTEBOOK · <b>how you'll work</b></div>
+  <h2>How the lab is organised</h2>
   <div class="grid3">
-    <div class="panel"><h3>Autoencoder</h3><p>Compress &amp; reconstruct <b>normal</b> operation.</p></div>
-    <div class="panel"><h3>LSTM</h3><p>Handles the <b>sequence</b> — catches contextual drift over time.</p></div>
-    <div class="panel amber"><h3>Attention</h3><p>The innovation: <b>focus</b> on critical time-steps, ignore noisy segments.</p></div>
+    <div class="panel"><h3>Guided run</h3><p>Walk the whole pipeline on one dataset, step by step, with the chapters of today as your map.</p></div>
+    <div class="panel"><h3>Transfer</h3><p>Run the same pipeline on a new dataset. What changed, and what didn't?</p></div>
+    <div class="panel amber"><h3>Your turn</h3><p>Cells marked ✏️ are yours to complete. Discussion cells are for your group.</p></div>
   </div>
-</section>
-
-<!-- 23 RESULTS -->
-<section class="slide" data-notes="Benchmarked on SWaT. Attention cut false alarms ~18% vs standard AE; strong on collective slow-drift anomalies. This is the project's reach goal.">
-  <h2>Results on SWaT</h2>
-  <div class="two">
-    <ul>
-      <li>Benchmarked on <b>Secure Water Treatment (SWaT)</b> — industrial standard</li>
-      <li>Attention reduced false alarms <b>~18%</b> vs. a standard autoencoder</li>
-      <li>Especially strong on <b>collective anomalies</b> — slow drifts = machine wear</li>
-    </ul>
-    <div class="panel amber"><h3>Why this matters today</h3>
-      <p>This is the <b>reach goal</b> of your project — the ambitious end of the ladder (Module 4).</p></div>
-  </div>
-</section>
-
-<!-- 24 INTERACTIVE SPOT #2 -->
-<section class="slide" data-notes="<b>0:40–0:45 Pulse #2.</b> The harder two. Umbrellas = contextual (season); brute force = collective (the sequence). Close: 'now let's make the machine do what you just did.'">
-  <div class="chan">SPOT THE ANOMALY · <b>pulse 2 — the harder two</b></div>
-  <h2>Click the type</h2>
-  <div class="two" style="grid-template-columns:1fr 1fr">
-    <div class="scenario" data-answer="contextual" data-ok="Correct — 200 is normal for rainy November, anomalous for sunny July." data-no="The number itself is ordinary — what makes it wrong here?">
-      <h3>The "Sunny Day" umbrellas</h3>
-      <p>A store sells 200 umbrellas — normal for a rainy November Tuesday, but this was a hot, sunny July Tuesday.</p>
-      <div class="choices interactive"><button data-type="point">point</button><button data-type="contextual">contextual</button><button data-type="collective">collective</button></div>
-      <div class="qstatus"></div>
-    </div>
-    <div class="scenario" data-answer="collective" data-ok="Correct — one failure is fine; the 500-in-60s sequence is the anomaly." data-no="A single failed login is normal — it's the group that matters.">
-      <h3>The "Brute Force" login</h3>
-      <p>One failed password is normal. But 500 failures in 60 seconds?</p>
-      <div class="choices interactive"><button data-type="point">point</button><button data-type="contextual">contextual</button><button data-type="collective">collective</button></div>
-      <div class="qstatus"></div>
-    </div>
-  </div>
-</section>
-
-<!-- 25 HANDOFF -->
-<section class="slide divider" data-notes="<b>0:45 Transition to lab.</b> 'You just did this with your eyes — now the machine does it, and we measure it.' Open the Module 1 notebook.">
-  <div class="num">To the lab — Module 1</div>
-  <h1>From eyes to algorithms</h1>
-  <p class="muted" style="margin-top:2vh">Credit Card Fraud · Isolation Forest vs. LOF · score distributions · threshold tuning</p>
-</section>
-
-<!-- 26 RESOURCES -->
-<section class="slide" data-notes="Point them here for the project. Aggarwal is the reference; Chandola is the seminal map.">
-  <h2>Key literature</h2>
-  <ul>
-    <li><b>First steps:</b> <i>Anomaly Detection Explained, Part I</i> — Eduard Stan</li>
-    <li><b>The reference:</b> <i>Outlier Analysis</i> — Charu C. Aggarwal (Springer)</li>
-    <li><b>Data mining:</b> Han, Kamber &amp; Pei — outlier-detection chapter</li>
-    <li><b>Seminal survey:</b> <i>Anomaly Detection: A Survey</i> — Chandola, Banerjee &amp; Kumar (ACM)</li>
-  </ul>
+  <p class="muted" style="margin-top:2.4vh">The same steps carry over to the project you'll do later this week.</p>
 </section>
 
 <!-- 27 TAKEAWAYS -->
-<section class="slide" data-notes="Three takeaways, then hand off: 'later this week a colleague gives you a project to do exactly this on a dataset you choose.'">
+<section class="slide" data-notes="One takeaway per chapter, in order, then hand off: 'later this week a colleague gives you a project to do exactly this on a dataset you choose.'">
   <h2>Takeaways</h2>
   <ul>
-    <li><b>Types decide methods.</b> Point vs. contextual vs. collective choose your model.</li>
-    <li><b>Measure honestly.</b> Accuracy lies on imbalanced data — live by precision, recall, PR-AUC.</li>
-    <li><b>Attention filters noise.</b> On IoT data it cuts false positives — our contribution.</li>
+    <li><b>Name the anomaly first.</b> Point, contextual or collective: the type shapes everything after.</li>
+    <li><b>Every method makes an assumption.</b> From statistics to classical ML to deep learning, each era traded an assumption for flexibility.</li>
+    <li><b>Types suggest a model; your data decides.</b> Use the chooser as a starting point, then benchmark on your own data.</li>
+    <li><b>Measure honestly.</b> Accuracy lies on imbalanced data. Use precision, recall, F1 and PR-AUC, and remember there is no free threshold.</li>
+    <li><b>One pipeline, any dataset.</b> Explore, prepare, score, threshold, evaluate: the same steps carry over to your project.</li>
   </ul>
   <p class="muted" style="margin-top:2.4vh">Later this week, a colleague hands you a project to do exactly this — on a dataset you choose.</p>
 </section>
 
+<!-- 26 RESOURCES -->
+<section class="slide" data-notes="Point them here for the project. Chandola is the seminal map (and the source of today's three anomaly types); Aggarwal is the reference textbook; Braei &amp; Wagner for time series; Ruff and Pang for the jump to deep learning.">
+  <div class="chan">DOCUMENTATION · <b>where to go next</b></div>
+  <h2>Key literature</h2>
+  <div class="grid3 refs">
+    <div class="panel"><h3>Surveys</h3>
+      <p><i>Anomaly Detection: A Survey</i><br><span class="src">Chandola, Banerjee &amp; Kumar, ACM Computing Surveys, 2009</span><br>The starting point: defines point, contextual and collective anomalies and the classic taxonomy of techniques.</p>
+      <p><i>Anomaly Detection in Univariate Time-series: A Survey on the State-of-the-Art</i><br><span class="src">Braei &amp; Wagner, 2020</span><br>How time dependence changes what an anomaly is, with classical and modern algorithms.</p></div>
+    <div class="panel"><h3>Textbooks</h3>
+      <p><i>Outlier Analysis</i><br><span class="src">Charu C. Aggarwal, Springer</span><br>The most complete textbook: statistics, data mining and ML, and strong on the curse of dimensionality.</p>
+      <p><i>Data Mining: Concepts and Techniques</i><br><span class="src">Han, Kamber &amp; Pei</span><br>The outlier-detection chapter.</p></div>
+    <div class="panel"><h3>Deep learning</h3>
+      <p><i>A Unifying Review of Deep and Shallow Anomaly Detection</i><br><span class="src">Ruff et al., Proceedings of the IEEE, 2021</span><br>One framework linking One-Class SVM and Isolation Forest to deep models.</p>
+      <p><i>Deep Learning for Anomaly Detection: A Review</i><br><span class="src">Pang et al., ACM Computing Surveys, 2021</span><br>Three families: feature extraction, learned normality, end-to-end scoring.</p></div>
+  </div>
+  <p class="muted" style="margin-top:2vh;font-size:calc(var(--fs)*.8)">First steps: <i>Anomaly Detection Explained, Part I</i> — Eduard Stan</p>
+</section>
+
 <!-- 28 THANK YOU -->
-<section class="slide divider" data-notes="Thank the room + Dell co-teachers. Leave up during lab setup.">
-  <div class="num">Thank you</div>
+<section class="slide divider" data-notes="<b>0:43 Transition to lab.</b> Thank the room. 'You did this with your eyes — now the machine does it, and we measure it.' Open the Module 1 notebook; leave this up during lab setup.">
+  <div class="num">Thank you · next: the Module 1 lab</div>
   <h1>Let's build detectors</h1>
   <p class="muted" style="margin-top:2.4vh">Eduard Stan — Dell Technologies<br>eduard.stan@dell.com</p>
+  <p class="muted" style="margin-top:1.6vh">Open the Module 1 notebook and run the pipeline yourself.</p>
 </section>
 
 </div>
@@ -535,6 +651,7 @@
     bar.style.width=(i/(slides.length-1)*100)+'%';
     count.textContent=(i+1)+' / '+slides.length;
     notes.innerHTML=slides[i].getAttribute('data-notes')||'<i>No notes.</i>';
+    slides[i].dispatchEvent(new Event('slideenter'));   // lets a slide start its animation
   }
   function go(n){i=Math.max(0,Math.min(slides.length-1,n));render();}
   function isField(el){return el&&/^(INPUT|TEXTAREA|BUTTON|SELECT)$/.test(el.tagName);}
@@ -576,7 +693,7 @@
   (function(){
     var N=10000,F=20,NN=N-F;
     var dummy={tn:NN,fp:0,fn:F,tp:0,note:'99.8% accurate — and it never catches a single fraud. Accuracy rewards ignoring the minority class.'};
-    var real ={tn:NN-120,fp:120,fn:4,tp:16,note:'Accuracy barely moved, yet this one catches 80% of fraud. Recall and PR-AUC tell the real story.'};
+    var real ={tn:NN-120,fp:120,fn:4,tp:16,note:'Accuracy barely moved, yet this one catches 80% of fraud. Recall tells the real story.'};
     function show(m){
       document.getElementById('cmTN').textContent=m.tn;
       document.getElementById('cmFP').textContent=m.fp;
@@ -624,63 +741,240 @@
       ctx.fillStyle='#89a6b1';ctx.font='12px Consolas';
       ctx.fillText('normal',12,16);ctx.fillStyle='#ff6a45';ctx.fillText('anomaly',70,16);
       ctx.fillStyle='#89a6b1';ctx.fillText('low score',6,H-8);ctx.fillText('high score',W-72,H-8);
-      // confusion
+      var m=metrics(t);
+      document.getElementById('thP').textContent=(m.tp+m.fp)?fmtPct(m.prec):'—';
+      document.getElementById('thR').textContent=fmtPct(m.rec);
+      document.getElementById('thF').textContent=m.f1.toFixed(2);
+      document.getElementById('thFP').textContent=m.fp;
+      drawCurves(t);
+    }
+    function metrics(t){
       var tp=0,fp=0,fn=0;
       anom.forEach(function(v){v>=t?tp++:fn++;});
       normal.forEach(function(v){if(v>=t)fp++;});
       var prec=(tp+fp)?tp/(tp+fp):0, rec=(tp+fn)?tp/(tp+fn):0, f1=(prec&&rec)?2*prec*rec/(prec+rec):0;
-      document.getElementById('thP').textContent=(tp+fp)?fmtPct(prec):'—';
-      document.getElementById('thR').textContent=fmtPct(rec);
-      document.getElementById('thF').textContent=(prec&&rec)?f1.toFixed(2):'0.00';
-      document.getElementById('thFP').textContent=fp;
+      return {tp:tp,fp:fp,prec:prec,rec:rec,f1:f1};
+    }
+    // precision / recall / F1 against the threshold, precomputed once
+    var cc=document.getElementById('thCurves'),c2=cc.getContext('2d'),CW=cc.width,CH=cc.height,curve=[];
+    for(k=0;k<=100;k++)curve.push(metrics(k));
+    var L=40,R=CW-14,TOP=28,BOT=CH-32;
+    function cx(t){return L+t/100*(R-L);} function cy(v){return BOT-v*(BOT-TOP);}
+    var SERIES=[['prec','#f6b63c','precision'],['rec','#2fd3c6','recall'],['f1','#eaf4f7','F1']];
+    function drawCurves(t){
+      c2.clearRect(0,0,CW,CH);
+      c2.font='12px Consolas';c2.strokeStyle='#1c4256';c2.lineWidth=1;c2.fillStyle='#89a6b1';
+      [0,.5,1].forEach(function(v){c2.beginPath();c2.moveTo(L,cy(v)+.5);c2.lineTo(R,cy(v)+.5);c2.stroke();c2.fillText(v.toFixed(1),8,cy(v)+4);});
+      c2.fillText('threshold →',R-92,CH-8);
+      var tx=cx(t);
+      c2.fillStyle='rgba(246,182,60,0.07)';c2.fillRect(tx,TOP,R-tx,BOT-TOP);   // same "flagged" shading as the histogram
+      SERIES.forEach(function(s,n){
+        c2.strokeStyle=s[1];c2.lineWidth=s[0]==='f1'?2.5:2;c2.beginPath();
+        var started=false;
+        curve.forEach(function(m,x){
+          if(s[0]==='prec'&&!(m.tp+m.fp)){started=false;return;}            // precision undefined when nothing is flagged
+          var X=cx(x),Y=cy(m[s[0]]);started?c2.lineTo(X,Y):c2.moveTo(X,Y);started=true;});
+        c2.stroke();
+        c2.fillStyle=s[1];c2.fillText(s[2],L+n*96,16);
+      });
+      c2.strokeStyle='#f6b63c';c2.lineWidth=2;c2.beginPath();c2.moveTo(tx,TOP);c2.lineTo(tx,BOT);c2.stroke();
+      var m=metrics(t);
+      SERIES.forEach(function(s){
+        if(s[0]==='prec'&&!(m.tp+m.fp))return;
+        c2.fillStyle=s[1];c2.beginPath();c2.arc(tx,cy(m[s[0]]),4.5,0,6.283);c2.fill();});
     }
     var r=document.getElementById('thRange');
     r.addEventListener('input',function(){draw(+r.value);});
     draw(+r.value);
   })();
 
-  /* ---------- IoT noise dial ---------- */
+  /* ---------- PR-AUC picture ---------- */
   (function(){
-    var cv=document.getElementById('iotCanvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
-    var N=240,A0=150,A1=190;       // real-fault (slow drift) region
-    var CENTER=50,BAND=16;          // detection band learned from clean baseline
-    var base=[],drift=[];
-    for(var i=0;i<N;i++){
-      base[i]=CENTER+4*Math.sin(i/15);                       // calm normal operation
-      drift[i]=(i>=A0&&i<=A1)? (i-A0)/(A1-A0)*28 : 0;         // gradual upward fault
+    var cv=document.getElementById('aucCanvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+    var rng=mulberry32(5),normal=[],anom=[],k;
+    for(k=0;k<400;k++)normal.push(gauss(rng,35,12));
+    for(k=0;k<40;k++)anom.push(gauss(rng,60,13));            // overlapping on purpose: a realistic detector
+    var base=anom.length/(anom.length+normal.length);
+    document.getElementById('aucData').textContent=(anom.length+normal.length)+' records, '+anom.length+' anomalies ('+Math.round(base*100)+'%)';
+    // one (recall, precision) point per threshold, strictest first; area as average precision
+    var pts=[],auc=0,prevR=0;
+    for(var t=100;t>=0;t-=.5){
+      var tp=0,fp=0;anom.forEach(function(v){if(v>=t)tp++;});normal.forEach(function(v){if(v>=t)fp++;});
+      if(!tp)continue;var r=tp/anom.length,p=tp/(tp+fp);
+      if(r>prevR){auc+=(r-prevR)*p;pts.push({r0:prevR,r:r,p:p,a:auc});prevR=r;}
     }
-    var attn=false;
-    function movavg(arr,w){var o=[],h=(w-1)/2;for(var i=0;i<arr.length;i++){var s=0,c=0;for(var j=-h;j<=h;j++){var idx=i+j;if(idx>=0&&idx<arr.length){s+=arr[idx];c++;}}o[i]=s/c;}return o;}
-    function draw(level){
-      var rng=mulberry32(7),sigma=level/100*18,val=[];
-      for(var i=0;i<N;i++)val[i]=base[i]+drift[i]+gauss(rng,0,sigma);
-      // attention = focus past the noise by smoothing before scoring
-      var det=attn?movavg(val,9):val;
-      var mean=CENTER,band=BAND, flags=[],fp=0,hit=false;
-      for(i=0;i<N;i++){if(Math.abs(det[i]-mean)>band){flags.push(i);if(i>=A0&&i<=A1)hit=true;else fp++;}}
-      // plot
-      ctx.clearRect(0,0,W,H);
-      function X(i){return i/(N-1)*W;}function Y(v){return H-10-(v/100)*(H-20);}
-      ctx.fillStyle='rgba(47,211,198,0.07)';ctx.fillRect(X(A0),0,X(A1)-X(A0),H);
-      ctx.fillStyle='#2fd3c6';ctx.font='12px Consolas';ctx.fillText('real fault (slow drift)',X(A0),16);
-      // normal band
-      ctx.strokeStyle='rgba(137,166,177,0.35)';ctx.setLineDash([4,4]);ctx.lineWidth=1;
-      ctx.beginPath();ctx.moveTo(0,Y(mean+band));ctx.lineTo(W,Y(mean+band));ctx.stroke();
-      ctx.beginPath();ctx.moveTo(0,Y(mean-band));ctx.lineTo(W,Y(mean-band));ctx.stroke();ctx.setLineDash([]);
-      // signal
-      ctx.strokeStyle=attn?'#2fd3c6':'#3f7f88';ctx.lineWidth=attn?2:1.4;ctx.beginPath();
-      for(i=0;i<N;i++){i?ctx.lineTo(X(i),Y(det[i])):ctx.moveTo(X(i),Y(det[i]));}ctx.stroke();
-      // flags
-      flags.forEach(function(ix){var inA=(ix>=A0&&ix<=A1);ctx.fillStyle=inA?'#2fd3c6':'#ff6a45';
-        ctx.beginPath();ctx.arc(X(ix),Y(det[ix]),3.2,0,6.28);ctx.fill();});
-      document.getElementById('iotFP').textContent=fp;
-      var hv=document.getElementById('iotHit');hv.textContent=hit?'detected':'missed';
-      hv.className=hit?'good':'bad';
+    var L=56,R=W-20,TOP=30,BOT=H-46;
+    function X(v){return L+v*(R-L);} function Y(v){return BOT-v*(BOT-TOP);}
+    var DUR=3.2,start=0,raf=0,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function draw(f){                                         // f = share of the sweep done, 0..1
+      ctx.clearRect(0,0,W,H);ctx.font='12px Consolas';
+      ctx.strokeStyle='#1c4256';ctx.lineWidth=1;ctx.fillStyle='#89a6b1';
+      [0,.5,1].forEach(function(v){
+        ctx.beginPath();ctx.moveTo(L,Y(v)+.5);ctx.lineTo(R,Y(v)+.5);ctx.stroke();ctx.fillText(v.toFixed(1),L-30,Y(v)+4);
+        ctx.beginPath();ctx.moveTo(X(v)+.5,TOP);ctx.lineTo(X(v)+.5,BOT);ctx.stroke();ctx.fillText(v.toFixed(1),X(v)-10,BOT+18);});
+      ctx.fillStyle='#2fd3c6';ctx.fillText('recall →',R-64,H-8);
+      ctx.save();ctx.translate(16,BOT);ctx.rotate(-Math.PI/2);ctx.fillStyle='#f6b63c';ctx.fillText('precision →',0,0);ctx.restore();
+      ctx.strokeStyle='#89a6b1';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(L,Y(base));ctx.lineTo(R,Y(base));ctx.stroke();ctx.setLineDash([]);
+      var bl='random detector = share of anomalies ('+Math.round(base*100)+'%)';
+      ctx.fillStyle='#89a6b1';ctx.fillText(bl,R-ctx.measureText(bl).width-4,Y(base)-6);
+      var n=Math.max(1,Math.round(f*pts.length)),last=pts[n-1];
+      ctx.beginPath();ctx.moveTo(X(0),BOT);ctx.lineTo(X(0),Y(pts[0].p));
+      for(k=0;k<n;k++){ctx.lineTo(X(pts[k].r0),Y(pts[k].p));ctx.lineTo(X(pts[k].r),Y(pts[k].p));}
+      ctx.lineTo(X(last.r),BOT);ctx.closePath();ctx.fillStyle='rgba(246,182,60,0.18)';ctx.fill();
+      ctx.beginPath();ctx.moveTo(X(0),Y(pts[0].p));
+      for(k=0;k<n;k++){ctx.lineTo(X(pts[k].r0),Y(pts[k].p));ctx.lineTo(X(pts[k].r),Y(pts[k].p));}
+      ctx.strokeStyle='#f6b63c';ctx.lineWidth=2.5;ctx.stroke();
+      ctx.fillStyle='#eaf4f7';ctx.beginPath();ctx.arc(X(last.r),Y(last.p),6,0,6.283);ctx.fill();
+      ctx.strokeStyle='#081721';ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle='#eaf4f7';ctx.font='13px Consolas';
+      ctx.fillText(f<1?'threshold sweeping…':'area = PR-AUC '+auc.toFixed(2),X(.06),Y(.12));
+      document.getElementById('aucVal').textContent=last.a.toFixed(2);
     }
-    var r=document.getElementById('iotRange'),b=document.getElementById('iotAttn');
+    function frame(now){var f=Math.min(1,(now-start)/1000/DUR);draw(f);if(f<1)raf=requestAnimationFrame(frame);}
+    function play(){cancelAnimationFrame(raf);if(reduce){draw(1);return;}start=performance.now();raf=requestAnimationFrame(frame);}
+    document.getElementById('aucSlide').addEventListener('slideenter',play);
+    document.getElementById('aucReplay').addEventListener('click',play);
+    draw(1);
+  })();
+
+  /* ---------- threshold in 2D ---------- */
+  (function(){
+    var cv=document.getElementById('th2d'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height,C=4;
+    var rng=mulberry32(11),pts=[],k;
+    var BLOBS=[{x:200,y:230,s:42},{x:390,y:150,s:32}];        // two "normal" clusters
+    // score = -log density of the normal clusters: what a density-based detector would output
+    function raw(x,y){var d=0;BLOBS.forEach(function(b){var dx=x-b.x,dy=y-b.y;d+=Math.exp(-(dx*dx+dy*dy)/(2*b.s*b.s))/(b.s*b.s);});return -Math.log(d+1e-12);}
+    for(k=0;k<170;k++){var b=BLOBS[k%2];pts.push({x:gauss(rng,b.x,b.s),y:gauss(rng,b.y,b.s),a:false});}
+    var edge=raw(BLOBS[1].x+2.6*BLOBS[1].s,BLOBS[1].y);      // anomalies only where density is low
+    while(pts.length<179){var ax=40+rng()*(W-80),ay=40+rng()*(H-80);
+      if(raw(ax,ay)>edge)pts.push({x:ax,y:ay,a:true});}
+    // score shown as percentile rank among the records: threshold t flags roughly the top (100-t)%
+    var sorted=pts.map(function(p){return raw(p.x,p.y);}).sort(function(a,b){return a-b;});
+    function norm(r){var l=0,h=sorted.length;while(l<h){var m=(l+h)>>1;if(sorted[m]<r)l=m+1;else h=m;}return l/sorted.length*100;}
+    pts.forEach(function(p){p.s=norm(raw(p.x,p.y));});
+    var GX=Math.ceil(W/C),GY=Math.ceil(H/C),grid=[];
+    for(var j=0;j<GY;j++)for(var i=0;i<GX;i++)grid.push(norm(raw(i*C+C/2,j*C+C/2)));
+    function draw(t){
+      ctx.fillStyle='#061119';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='rgba(246,182,60,0.13)';
+      for(var j=0;j<GY;j++)for(var i=0;i<GX;i++)if(grid[j*GX+i]>=t)ctx.fillRect(i*C,j*C,C,C);
+      ctx.fillStyle='#f6b63c';                                   // contour = cells where the decision flips
+      for(j=0;j<GY;j++)for(i=0;i<GX;i++){var f=grid[j*GX+i]>=t;
+        if(i+1<GX&&(grid[j*GX+i+1]>=t)!==f)ctx.fillRect(i*C+C-1,j*C,2,C);
+        if(j+1<GY&&(grid[(j+1)*GX+i]>=t)!==f)ctx.fillRect(i*C,j*C+C-1,C,2);}
+      var tp=0,fp=0,na=0;
+      pts.forEach(function(p){var g=p.s>=t;if(p.a){na++;if(g)tp++;}else if(g)fp++;
+        ctx.beginPath();ctx.arc(p.x,p.y,p.a?5:3.2,0,6.283);
+        if(p.a&&!g){ctx.strokeStyle='#ff6a45';ctx.lineWidth=1.6;ctx.stroke();}   // missed: hollow
+        else{ctx.fillStyle=p.a?'#ff6a45':g?'#f6b63c':'rgba(47,211,198,0.7)';ctx.fill();}});
+      ctx.font='12px Consolas';ctx.fillStyle='#89a6b1';
+      ctx.fillText('feature 1 →',W-96,H-10);ctx.save();ctx.translate(18,H-14);ctx.rotate(-Math.PI/2);ctx.fillText('feature 2 →',0,0);ctx.restore();
+      ctx.fillStyle='#f6b63c';ctx.fillRect(14,15,16,2);ctx.fillText('threshold contour',36,20);
+      ctx.fillStyle='rgba(246,182,60,0.35)';ctx.fillRect(176,10,12,12);ctx.fillStyle='#f6b63c';ctx.fillText('alarm region',194,20);
+      document.getElementById('t2TP').textContent=tp+' / '+na;
+      document.getElementById('t2FP').textContent=fp;
+    }
+    var r=document.getElementById('th2dRange');
     r.addEventListener('input',function(){draw(+r.value);});
-    b.addEventListener('click',function(){attn=!attn;b.textContent='Attention: '+(attn?'ON':'OFF');b.classList.toggle('on',attn);draw(+r.value);});
     draw(+r.value);
+  })();
+
+  /* ---------- lab pipeline animation ---------- */
+  (function(){
+    var cv=document.getElementById('pipeCanvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+    var stages=[].slice.call(document.querySelectorAll('#pipeStages li')),cap=document.getElementById('pipeCap');
+    var CAPS=['Explore: how rare are the anomalies?',
+      'Prepare: clean and scale the features, set aside data to test on.',
+      'Score: a detector gives every record an anomaly score.',
+      'Threshold: pick the score above which you raise an alarm.',
+      'Evaluate: count what you caught, missed, and falsely flagged.'];
+    var T=[0,2.2,4.2,8.8,10.8,12.6];            // stage start times in seconds; last = end
+    var N=200,BINS=25,BX=470,HW=W-BX-20,BW=HW/BINS,BASE=H-30,STEP=5,DX=360,DY=H/2-6;
+    var dots=[],cut=50,seed=1,start=0,raf=0;
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function clamp(x){return x<0?0:x>1?1:x;}
+    function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;}
+    function lerp(a,b,p){return a+(b-a)*p;}
+    function flagged(d,th){return (d.bin+.5)/BINS*100>=th;}
+    function build(){
+      var rng=mulberry32(seed*97),stack=new Array(BINS).fill(0),hard=seed>1;
+      dots=[];
+      for(var k=0;k<N;k++){
+        var a=k%17===3,u,v;
+        if(a){var ang=rng()*6.283,r=2.6+rng()*.5;u=r*Math.cos(ang);v=r*Math.sin(ang);}  // anomalies sit on the outskirts
+        else{u=Math.max(-2.5,Math.min(2.5,gauss(rng,0,1)));v=Math.max(-2.5,Math.min(2.5,gauss(rng,0,1)));}
+        var s=a?gauss(rng,hard?58+seed*2:68,hard?13:10):gauss(rng,hard?40:34,11);
+        s=Math.max(0,Math.min(99.9,s));
+        var bin=Math.min(BINS-1,Math.floor(s/100*BINS)),h=stack[bin]++;
+        dots.push({a:a,s:s,bin:bin,
+          rx:150+u*46,ry:150+v*20,     // raw: features on different scales
+          px:150+u*34,py:150+v*34,     // prepared: standardised
+          ex:BX+bin*BW+BW/2,ey:BASE-h*STEP-STEP/2});
+      }
+      // threshold = best F1 on this data (what the lab's tuning step does)
+      var best=-1;
+      for(var b=1;b<BINS;b++){
+        var th=b/BINS*100,tp=0,fp=0,fn=0;
+        dots.forEach(function(d){var f=flagged(d,th);if(d.a){f?tp++:fn++;}else if(f)fp++;});
+        var f1=tp?2*tp/(2*tp+fp+fn):0;
+        if(f1>best){best=f1;cut=th;}
+      }
+    }
+    function draw(t){
+      ctx.clearRect(0,0,W,H);
+      var reveal=clamp((t-1)/.6),prep=ease(clamp((t-T[1])/1.4)),scoring=t>=T[2]&&t<T[3]+.4;
+      var th=t<T[3]?null:lerp(100,cut,ease(clamp((t-T[3])/1.4)));
+      ctx.font='12px Consolas';ctx.fillStyle='#89a6b1';
+      ctx.fillText(seed===1?'records · dataset A':'records · dataset '+String.fromCharCode(64+seed),14,16);
+      ctx.fillText('score distribution',BX,16);
+      ctx.fillText('low score',BX,H-8);ctx.fillText('high score',W-92,H-8);
+      // detector
+      ctx.strokeStyle=scoring?'#f6b63c':'#1c4256';ctx.lineWidth=scoring?2:1.2;
+      ctx.strokeRect(DX-44,DY-34,88,68);ctx.fillStyle=scoring?'#f6b63c':'#89a6b1';ctx.fillText('detector',DX-30,DY+4);
+      ctx.strokeStyle='#1c4256';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(BX,BASE+.5);ctx.lineTo(W-20,BASE+.5);ctx.stroke();
+      // threshold region
+      if(th!==null){var tx=BX+th/100*HW;
+        ctx.fillStyle='rgba(246,182,60,0.07)';ctx.fillRect(tx,24,W-20-tx,BASE-24);
+        ctx.strokeStyle='#f6b63c';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(tx,24);ctx.lineTo(tx,BASE);ctx.stroke();
+        ctx.fillStyle='#f6b63c';ctx.fillText('alarm',tx+6,36);}
+      dots.forEach(function(d,k){
+        var s0=T[2]+k*(3.6/N),p=clamp((t-s0)/.9),x,y;
+        var red=d.a&&reveal>0,col=red?'rgba(255,106,69,'+(.35+.65*reveal)+')':'#3f7f88';
+        if(p>=1){                                   // landed in the histogram
+          if(th===null)col=d.a?'#ff6a45':'rgba(47,211,198,0.8)';
+          else if(flagged(d,th))col=d.a?'#ff6a45':'#f6b63c';
+          else col=d.a?'rgba(255,106,69,0.35)':'rgba(47,211,198,0.35)';
+          ctx.fillStyle=col;ctx.fillRect(d.ex-BW/2+1,d.ey-STEP/2,BW-2,STEP-1);return;
+        }
+        var cx=lerp(d.rx,d.px,prep),cy=lerp(d.ry,d.py,prep);
+        if(p<=0){x=cx;y=cy;}
+        else if(p<.5){var q=ease(p*2);x=lerp(cx,DX,q);y=lerp(cy,DY,q);}
+        else{var q2=ease((p-.5)*2);x=lerp(DX,d.ex,q2);y=lerp(DY,d.ey,q2);}
+        ctx.globalAlpha=clamp(t/.8);ctx.fillStyle=red?'#ff6a45':col;
+        ctx.beginPath();ctx.arc(x,y,d.a?4:3,0,6.283);ctx.fill();ctx.globalAlpha=1;
+      });
+      // stage strip, caption, readout
+      var cur=0;for(var s=0;s<5;s++)if(t>=T[s])cur=s;
+      stages.forEach(function(li,s){li.classList.toggle('on',s===cur&&t<T[5]);li.classList.toggle('done',s<cur||t>=T[5]);});
+      cap.textContent=CAPS[cur];
+      var f=clamp((t-T[4])/1.2),tp=0,fp=0,fn=0;
+      dots.forEach(function(d){var g=flagged(d,cut);if(d.a){g?tp++:fn++;}else if(g)fp++;});
+      var show=function(id,v){document.getElementById(id).textContent=v;};
+      show('pcTP',t<T[4]?'—':Math.round(tp*f));show('pcFN',t<T[4]?'—':Math.round(fn*f));
+      show('pcFP',t<T[4]?'—':Math.round(fp*f));
+      show('pcP',f<1?'—':(tp+fp?fmtPct(tp/(tp+fp)):'—'));show('pcR',f<1?'—':fmtPct(tp/(tp+fn)));
+      show('pcF1',f<1?'—':(2*tp/(2*tp+fp+fn)).toFixed(2));   // F1 = 2PR/(P+R), written in counts
+    }
+    function frame(now){var t=(now-start)/1000;draw(t);if(t<T[5])raf=requestAnimationFrame(frame);}
+    function play(){
+      cancelAnimationFrame(raf);build();
+      if(reduce){draw(T[5]);return;}
+      start=performance.now();raf=requestAnimationFrame(frame);
+    }
+    document.getElementById('pipeSlide').addEventListener('slideenter',play);
+    document.getElementById('pipeReplay').addEventListener('click',play);
+    document.getElementById('pipeNew').addEventListener('click',function(){seed=seed%5+1;play();});
+    build();draw(T[5]);
   })();
 
   render();
