@@ -1,3 +1,4 @@
 *.claude/
 *build_lab.py
-*Anomaly Detection Presentation.pdf.venv/
+*Anomaly Detection Presentation.pdf
+.venv/
