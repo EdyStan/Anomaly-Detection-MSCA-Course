@@ -71,7 +71,7 @@
   .t-ctx{background:#3a2e12;color:var(--amber)}
   .t-col{background:#103038;color:var(--trace)}
   /* roadmap */
-  .road{display:grid;grid-template-columns:repeat(5,1fr);gap:1vw;margin-top:1vh}
+  .road{display:grid;grid-template-columns:repeat(3,1fr);gap:1vw;margin-top:1vh}
   .mod{background:var(--panel2);border-top:3px solid var(--line);border-radius:4px;
     padding:1.8vh 1vw;position:relative}
   .mod .mn{font-family:var(--mono);color:var(--muted);font-size:calc(var(--fs)*.7)}
@@ -99,7 +99,7 @@
   .agenda li span{color:var(--muted)}
   .mod.today{border-top-color:var(--amber);background:#13283a}
   .mod.today .mn{color:var(--amber)}
-  .todaytag{position:absolute;top:-1.1em;right:.6vw;font-family:var(--mono);
+  .todaytag{position:absolute;top:-1.6em;right:.6vw;font-family:var(--mono);
     font-size:calc(var(--fs)*.62);color:var(--amber);letter-spacing:.1em}
   /* literature */
   .refs p{font-size:calc(var(--fs)*.7);line-height:1.35;margin-top:1.4vh}
@@ -163,8 +163,8 @@
 <div id="deck">
 
 <!-- 1 TITLE -->
-<section class="slide divider" data-notes="<b>0:00–0:05 Open.</b> Hook: by the end you'll have trained two detectors and benchmarked them. Introduce yourself + Dell co-teachers. Then show the week roadmap.">
-  <div class="num">MSCA · Doctoral Programme · Day 1</div>
+<section class="slide divider" data-notes="<b>0:00–0:05 Open.</b> Hook: by the end you'll have trained two detectors and benchmarked them. Introduce yourself + Dell co-teachers. Then show the course map: Module 1 of 3.">
+  <div class="num">MSCA · Doctoral Programme · Module 1 of 3</div>
   <h1 style="font-size:calc(var(--fs)*3.4)">Anomaly<br>Detection</h1>
   <p class="muted" style="margin-top:3vh">Eduard Stan — Dell Technologies<br>eduard.stan@dell.com</p>
 </section>
@@ -184,18 +184,14 @@
 </section>
 
 <!-- 2 ROADMAP -->
-<section class="slide" data-notes="Orient them in the week. Placeholder: update once the final course map is agreed.">
-  <div class="chan">COURSE MAP · <b>to be confirmed</b></div>
-  <h2>Where today sits</h2>
+<section class="slide" data-notes="Orient them. Three modules, back to back today. Module 1, now: anomaly types, classical detectors and honest metrics, ending on a question: there is no free threshold, so who decides where it goes? Module 2, right after this, adds money, time and accountability: fraud detection with cost-sensitive decisions, drift and explainability. Module 3 moves to time series, where the context (hour, weekday, season) decides what is anomalous.">
+  <div class="chan">COURSE MAP · <b>3 modules, back to back</b></div>
+  <h2>Where this module sits</h2>
   <div class="road">
-    <!-- PLACEHOLDER: fill in once the final course map is agreed -->
-    <div class="mod today"><span class="todaytag">▸ today</span><div class="mn">Module 1</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
-    <div class="mod"><div class="mn">Module 2</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
-    <div class="mod"><div class="mn">Module 3</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
-    <div class="mod"><div class="mn">Module 4</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
-    <div class="mod"><div class="mn">Module 5</div><h4>[Module title]</h4><p>[One-line summary]</p></div>
+    <div class="mod today"><span class="todaytag">▸ now</span><div class="mn">Module 1</div><h4>Classical models on tabular data</h4><p>Anomaly types · detectors (Isolation Forest, LOF) · precision, recall, PR-AUC · no free threshold.</p></div>
+    <div class="mod"><div class="mn">Module 2</div><h4>Fraud: cost, drift &amp; explainability</h4><p>Imbalance strategies · cost-sensitive decisions · supervised vs. unsupervised · SHAP.</p></div>
+    <div class="mod"><div class="mn">Module 3</div><h4>Contextual anomalies &amp; seasonality</h4><p>Trend / seasonality / residual · sliding-window features · dynamic z-score vs. Isolation Forest on NYC taxi demand.</p></div>
   </div>
-  <p class="small" style="margin-top:2vh">Placeholder: the final course map will be added here.</p>
 </section>
 
 <!-- 3 OBJECTIVES -->
