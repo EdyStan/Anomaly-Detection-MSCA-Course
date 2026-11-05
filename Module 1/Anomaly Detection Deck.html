@@ -163,7 +163,7 @@
 <div id="deck">
 
 <!-- 1 TITLE -->
-<section class="slide divider" data-notes="<b>0:00–0:05 Open.</b> Hook: by the end you'll have trained two detectors and benchmarked them. Introduce yourself + Dell co-teachers. Then show the course map: Module 1 of 3.">
+<section class="slide divider" data-notes="<b>0:00–0:05 Open.</b> Hook: by the end you'll have trained three detectors and benchmarked them. Introduce yourself + Dell co-teachers. Then show the course map: Module 1 of 3.">
   <div class="num">MSCA · Doctoral Programme · Module 1 of 3</div>
   <h1 style="font-size:calc(var(--fs)*3.4)">Anomaly<br>Detection</h1>
   <p class="muted" style="margin-top:3vh">Eduard Stan — Dell Technologies<br>eduard.stan@dell.com</p>
@@ -188,7 +188,7 @@
   <div class="chan">COURSE MAP · <b>3 modules, back to back</b></div>
   <h2>Where this module sits</h2>
   <div class="road">
-    <div class="mod today"><span class="todaytag">▸ now</span><div class="mn">Module 1</div><h4>Classical models on tabular data</h4><p>Anomaly types · detectors (Isolation Forest, LOF) · precision, recall, PR-AUC · no free threshold.</p></div>
+    <div class="mod today"><span class="todaytag">▸ now</span><div class="mn">Module 1</div><h4>Classical models on tabular data</h4><p>Anomaly types · detectors (Isolation Forest, LOF, One-Class SVM) · precision, recall, PR-AUC · no free threshold.</p></div>
     <div class="mod"><div class="mn">Module 2</div><h4>Fraud: cost, drift &amp; explainability</h4><p>Imbalance strategies · cost-sensitive decisions · supervised vs. unsupervised · SHAP.</p></div>
     <div class="mod"><div class="mn">Module 3</div><h4>Contextual anomalies &amp; seasonality</h4><p>Trend / seasonality / residual · sliding-window features · dynamic z-score vs. Isolation Forest on NYC taxi demand.</p></div>
   </div>
@@ -203,7 +203,7 @@
       <li>Classify an anomaly as <b>point, contextual, or collective</b></li>
       <li>Explain why <b>accuracy is useless</b> on imbalanced data</li>
       <li>Place today's detectors in the <b>history</b> of the field</li>
-      <li>Train and compare <b>two classical detectors</b></li>
+      <li>Train and compare <b>three classical detectors</b></li>
       <li>Tune a <b>threshold</b> to balance precision and recall</li>
     </ul>
     <div class="panel amber">
@@ -220,7 +220,7 @@
   <ol class="agenda">
     <li><b>Foundations</b> <span>— what counts as an anomaly</span></li>
     <li><b>History</b> <span>— how detection methods evolved</span></li>
-    <li><b>From types to models</b> <span>— choosing a detector</span></li>
+    <li><b>From types to models</b> <span>— choosing a detector, and the three in the lab</span></li>
     <li><b>Evaluation</b> <span>— how we know a detector works</span></li>
     <li><b>The lab</b> <span>— one pipeline, any dataset</span></li>
   </ol>
@@ -362,7 +362,7 @@
 </section>
 
 <!-- 13 ERA2 -->
-<section class="slide" data-notes="Era 2 assumption: normal data clusters / is dense. LOF and Isolation Forest are the Module 1 lab.">
+<section class="slide" data-notes="Era 2 assumption: normal data clusters / is dense. Isolation Forest, LOF and One-Class SVM are the Module 1 lab; each gets its own slide in Chapter 3.">
   <div class="chan">ERA 2 · <b>2000s</b></div>
   <h2>Classical machine learning</h2>
   <div class="two">
@@ -395,7 +395,7 @@
 </section>
 
 <!-- CH3 DIVIDER -->
-<section class="slide divider" data-notes="<b>0:25 Chapter 3.</b> ~4 min. Now that they know the methods, map anomaly types to them.">
+<section class="slide divider" data-notes="<b>0:25 Chapter 3.</b> ~7 min, including the three lab models. Now that they know the methods, map anomaly types to them.">
   <div class="num">Chapter 3 / 5 — From types to models</div>
   <h1>Which detector for which anomaly?</h1>
 </section>
@@ -406,7 +406,7 @@
   <h2>Each type points to a model</h2>
   <table>
     <tr><th>Anomaly type</th><th>What catches it</th><th>Why</th></tr>
-    <tr><td><span class="tag t-pt">point</span></td><td class="map">Isolation Forest · LOF</td><td>deviation in feature space, no time needed</td></tr>
+    <tr><td><span class="tag t-pt">point</span></td><td class="map">Isolation Forest · LOF · One-Class SVM</td><td>deviation in feature space, no time needed</td></tr>
     <tr><td><span class="tag t-ctx">contextual</span></td><td class="map">IF / LOF + context features · forecasting / reconstruction models</td><td>value vs. what's expected for that context (time, season, user)</td></tr>
     <tr><td><span class="tag t-col">collective</span></td><td class="map">autoencoders · sequence models</td><td>pattern over many steps</td></tr>
   </table>
@@ -420,16 +420,117 @@
   <h2>A three-question chooser</h2>
   <div class="grid3">
     <div class="panel"><h3>1 · Labels?</h3><p>Almost never. Treat it as <b>unsupervised</b>; keep any labels only to <i>evaluate</i>.</p></div>
-    <div class="panel"><h3>2 · Structure?</h3><p><b>Tabular</b> → Isolation Forest / LOF.<br><b>Sequential</b> → autoencoder / sequence model.</p></div>
+    <div class="panel"><h3>2 · Structure?</h3><p><b>Tabular</b> → Isolation Forest / LOF / One-Class SVM.<br><b>Sequential</b> → autoencoder / sequence model.</p></div>
     <div class="panel"><h3>3 · Interpretable?</h3><p>Need to explain it? Start classical. Need raw power on complex data? Go deep.</p></div>
   </div>
 </section>
 
+<!-- LAB MODEL 1: ISOLATION FOREST -->
+<section class="slide" data-notes="<b>Lab model 1 of 3, ~1.5 min.</b> Same layout on all three slides: idea, score, assumption, weak spot. Few splits on average = high score. The numbers in the picture are an illustration, not lab results. If asked, lab section A4: 200 random trees; the score comes from the average number of splits.">
+  <div class="chan">LAB MODEL · <b>1 of 3</b></div>
+  <div class="two">
+    <div>
+      <h2>Isolation Forest</h2>
+      <ul>
+        <li><b>Idea:</b> random splits isolate anomalies in few splits. Normal points need many.</li>
+        <li><b>Score:</b> fewer splits on average across the trees, higher anomaly score.</li>
+        <li><b>Assumes:</b> anomalies are few and different.</li>
+        <li><b class="bad">Weak spot:</b> anomalies close to dense regions need more splits.</li>
+      </ul>
+    </div>
+    <svg viewBox="0 0 320 220" role="img" aria-label="Three random trees. The red point is isolated after 2, 1 and 3 splits, an average of 2. The normal point is isolated after 7, 5 and 6 splits, an average of 6. Example numbers.">
+      <rect width="320" height="220" fill="#061119" rx="4"/>
+      <g fill="#89a6b1" font-family="Consolas" font-size="11" text-anchor="middle"><text x="55" y="18">tree 1</text><text x="160" y="18">tree 2</text><text x="265" y="18">tree 3</text></g>
+      <!-- other branches -->
+      <g fill="none" stroke="#3f7f88" stroke-width="1">
+        <path d="M33 46L46 62M75 46L88 62M65 62L52 78M75 78L88 94M65 94L52 110M75 110L88 126M65 126L52 142"/>
+        <path d="M180 46L193 62M170 62L157 78M180 78L193 94M170 94L157 110"/>
+        <path d="M243 46L256 62M232 62L245 78M285 46L298 62M275 62L262 78M285 78L298 94M275 94L262 110M285 110L298 126"/>
+      </g>
+      <!-- normal point: 7, 5, 6 splits -->
+      <g fill="none" stroke="#2fd3c6" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M55 30L75 46L65 62L75 78L65 94L75 110L65 126L75 142"/>
+        <path d="M160 30L180 46L170 62L180 78L170 94L180 110"/>
+        <path d="M265 30L285 46L275 62L285 78L275 94L285 110L275 126"/>
+      </g>
+      <!-- red point: 2, 1, 3 splits -->
+      <g fill="none" stroke="#ff6a45" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M55 30L33 46L20 62"/>
+        <path d="M160 30L138 46"/>
+        <path d="M265 30L243 46L232 62L221 78"/>
+      </g>
+      <g fill="#2fd3c6"><circle cx="75" cy="142" r="5"/><circle cx="180" cy="110" r="5"/><circle cx="275" cy="126" r="5"/></g>
+      <g fill="#ff6a45"><circle cx="20" cy="62" r="6"/><circle cx="138" cy="46" r="6"/><circle cx="221" cy="78" r="6"/></g>
+      <g font-family="Consolas" font-size="12" font-weight="600" text-anchor="middle">
+        <g fill="#ff6a45"><text x="43" y="165">2</text><text x="148" y="165">1</text><text x="253" y="165">3</text></g>
+        <g fill="#2fd3c6"><text x="67" y="165">7</text><text x="172" y="165">5</text><text x="277" y="165">6</text></g>
+      </g>
+      <g font-family="Consolas" font-size="11">
+        <text x="14" y="186" fill="#ff6a45">red point: average 2 splits</text>
+        <text x="14" y="204" fill="#2fd3c6">normal point: average 6 splits</text>
+        <text x="306" y="204" fill="#89a6b1" font-size="10" text-anchor="end">example numbers</text>
+      </g></svg>
+  </div>
+</section>
+
+<!-- LAB MODEL 2: LOF -->
+<section class="slide" data-notes="<b>Lab model 2 of 3, ~1.5 min.</b> LOF compares a point's local density with its neighbors', so it handles tight and spread-out clusters. If asked, lab section A5: n_neighbors=20, novelty=True. Weak spot, visible in the lab: frauds and flood attacks form dense groups, so LOF sees them as normal.">
+  <div class="chan">LAB MODEL · <b>2 of 3</b></div>
+  <div class="two">
+    <div>
+      <h2>Local Outlier Factor (LOF)</h2>
+      <ul>
+        <li><b>Idea:</b> compare a point's local density with the density of its neighbors.</li>
+        <li><b>Score:</b> less dense than its neighbors, higher anomaly score.</li>
+        <li><b>Assumes:</b> anomalies are less dense than their neighbors.</li>
+        <li><b class="bad">Weak spot:</b> anomalies that form a dense group look normal.</li>
+      </ul>
+    </div>
+    <svg viewBox="0 0 320 220" role="img" aria-label="A tight cluster and a spread-out cluster; a point just outside the tight cluster is less dense than its neighbors and marked as an anomaly">
+      <rect width="320" height="220" fill="#061119" rx="4"/>
+      <g fill="#3f7f88"><circle cx="70" cy="70" r="4"/><circle cx="82" cy="62" r="4"/><circle cx="92" cy="74" r="4"/>
+      <circle cx="76" cy="84" r="4"/><circle cx="62" cy="58" r="4"/><circle cx="88" cy="88" r="4"/><circle cx="58" cy="78" r="4"/><circle cx="74" cy="50" r="4"/></g>
+      <g fill="#3f7f88"><circle cx="215" cy="125" r="4"/><circle cx="255" cy="110" r="4"/><circle cx="235" cy="160" r="4"/>
+      <circle cx="280" cy="150" r="4"/><circle cx="215" cy="165" r="4"/><circle cx="270" cy="185" r="4"/><circle cx="225" cy="195" r="4"/></g>
+      <circle cx="132" cy="108" r="7" fill="#ff6a45"/>
+      <circle cx="132" cy="108" r="46" fill="none" stroke="#f6b63c" stroke-dasharray="3 3"/>
+      <text x="100" y="172" fill="#ff6a45" font-family="Consolas" font-size="12">less dense than</text>
+      <text x="100" y="187" fill="#ff6a45" font-family="Consolas" font-size="12">its neighbors</text>
+      <text x="40" y="34" fill="#89a6b1" font-family="Consolas" font-size="12">tight cluster</text>
+      <text x="196" y="96" fill="#89a6b1" font-family="Consolas" font-size="12">spread-out cluster</text></svg>
+  </div>
+</section>
+
+<!-- LAB MODEL 3: ONE-CLASS SVM -->
+<section class="slide" data-notes="<b>Lab model 3 of 3, ~1.5 min.</b> Learns a boundary around normal. If asked, lab section A6, already filled in for students: rbf kernel; nu is an upper limit on the share of training points outside the boundary; fitted on 4,000 records because SVMs scale poorly.">
+  <div class="chan">LAB MODEL · <b>3 of 3</b></div>
+  <div class="two">
+    <div>
+      <h2>One-Class SVM</h2>
+      <ul>
+        <li><b>Idea:</b> learn a boundary around "normal".</li>
+        <li><b>Score:</b> further outside the boundary, higher anomaly score.</li>
+        <li><b>Assumes:</b> a boundary can wrap the normal data.</li>
+        <li><b class="bad">Weak spot:</b> scales poorly on large datasets.</li>
+      </ul>
+    </div>
+    <svg viewBox="0 0 320 220" role="img" aria-label="A curved boundary drawn around normal points, with two anomalies outside it">
+      <rect width="320" height="220" fill="#061119" rx="4"/>
+      <path d="M60 120 C50 70 110 45 150 62 C185 76 215 55 245 80 C275 105 245 150 205 150 C170 150 150 180 110 172 C80 166 66 150 60 120Z" fill="#2fd3c6" fill-opacity="0.1" stroke="#f6b63c" stroke-width="2"/>
+      <g fill="#3f7f88"><circle cx="95" cy="100" r="5"/><circle cx="120" cy="85" r="5"/><circle cx="150" cy="95" r="5"/>
+      <circle cx="110" cy="125" r="5"/><circle cx="140" cy="125" r="5"/><circle cx="175" cy="105" r="5"/>
+      <circle cx="205" cy="95" r="5"/><circle cx="225" cy="115" r="5"/><circle cx="120" cy="150" r="5"/><circle cx="185" cy="130" r="5"/></g>
+      <circle cx="280" cy="45" r="8" fill="#ff6a45"/><circle cx="265" cy="185" r="8" fill="#ff6a45"/>
+      <text x="14" y="28" fill="#f6b63c" font-family="Consolas" font-size="12">learned boundary</text>
+      <text x="170" y="205" fill="#ff6a45" font-family="Consolas" font-size="12">outside: alarm</text></svg>
+  </div>
+</section>
+
 <!-- CH4 DIVIDER -->
-<section class="slide divider" data-notes="<b>0:29 Chapter 4.</b> ~10 min. Before trusting any detector, how do we measure it? This is Module 1's 'capcana metricilor'. Read the roadmap aloud: each step builds on the one before.">
+<section class="slide divider" data-notes="<b>0:32 Chapter 4.</b> ~7 min. Before trusting any detector, how do we measure it? This is Module 1's 'capcana metricilor'. Read the roadmap aloud: each step builds on the one before.">
   <div class="num">Chapter 4 / 5 — Evaluation</div>
   <h1>But how do we know it works?</h1>
-  <p class="muted" style="margin-top:3vh">The four outcomes → why accuracy lies → what a threshold is → choosing one → judging all of them at once</p>
+  <p class="muted" style="margin-top:3vh">The four outcomes → why accuracy lies → from score to alarm → choosing a threshold → judging all thresholds at once</p>
 </section>
 
 <!-- 16b METRICS DEFINED -->
@@ -455,7 +556,7 @@
 </section>
 
 <!-- 17 INTERACTIVE metrics trap -->
-<section class="slide" data-notes="<b>The metrics trap.</b> Click 'Always normal' — 99.8% accuracy, catches zero fraud. Click 'Detector' — accuracy barely drops but it catches 80%. Accuracy hides everything; precision and recall don't. Close with: 'but these depend on where we draw the line — what is that line?'">
+<section class="slide" data-notes="<b>The metrics trap.</b> Click 'Always normal' — 99.8% accuracy, catches zero fraud. Click 'Detector' — accuracy barely drops but it catches 80%. Accuracy hides everything; precision and recall don't. Close with: 'but our models only give a score. These numbers depend on where we cut that score.'">
   <div class="chan">THE METRICS TRAP · <b>10,000 transactions, 20 are fraud</b></div>
   <h2>Accuracy lies on imbalanced data</h2>
   <div class="two">
@@ -483,21 +584,22 @@
 </section>
 
 <!-- 17b WHAT IS THE THRESHOLD -->
-<section class="slide" data-notes="<b>What is the threshold?</b> The detector never says yes/no — it outputs a score. The threshold is the cut-off WE choose on that score; it is not learned during training. In 2D the score is a landscape over the feature plane and the threshold is one contour line of it: that line is the decision boundary. Drag the slider: lower = bigger alarm region, more false alarms; higher = smaller region, more misses. The slider here is a percentile: at 90 the top 10% of scores raise an alarm. That is exactly how scikit-learn's contamination parameter picks the cut-off in the lab (contamination=0.1 ≈ threshold 90). Next slide: the same cut-off, seen on the score axis.">
+<section class="slide" data-notes="<b>From score to alarm.</b> Not a new concept: students already saw the score on the three model slides and the word threshold on the course map. Now we detail it. A score is not yet a decision; the threshold is the cut-off WE choose on that score; it is not learned during training. In 2D the score is a landscape over the feature plane and the threshold is one contour line of it: that line is the decision boundary. Drag the slider: lower = bigger alarm region, more false alarms; higher = smaller region, more misses. The picture shows the model output as a value from 0 to 1 for every point: the background colour, the colour bar and the numbers on three sample points. Read it like a probability of being an anomaly, but be honest if asked: these detectors give a rescaled score, not a calibrated probability, and here it is the record's rank among all scores. So at 0.90 the top 10% of scores raise an alarm. That is exactly how scikit-learn's contamination parameter picks the cut-off in the lab (contamination=0.1 ≈ threshold 0.90). Next slide: the same cut-off, seen on the score axis.">
   <div class="chan">THE THRESHOLD · <b>score in, decision out</b></div>
-  <h2>What exactly is the threshold?</h2>
+  <h2>From score to alarm: the threshold</h2>
   <div class="two">
     <ul>
-      <li>The detector's <b>output</b> is an <b>anomaly score</b> for every record: higher means more unusual.</li>
-      <li>The <b>threshold</b> is a cut-off <i>you</i> choose on that score: score ≥ threshold → <b class="amb">alarm</b>.</li>
+      <li>All three models give every record an <b>anomaly score</b>. Scaled from <b>0 to 1</b>, read it like the <b>probability</b> that the point is an anomaly: 0 = clearly normal, 1 = clearly anomalous.</li>
+      <li>A score is not yet a decision. The <b>threshold</b> is a cut-off <i>you</i> choose on that score: score ≥ threshold → <b class="amb">alarm</b>.</li>
       <li>It is <b>not learned</b> from the data: it is your decision, often set as the share of anomalies you expect (scikit-learn's <code>contamination</code>), and the cut-off follows from that.</li>
-      <li><b>In 2D:</b> the score is a landscape over the features, and the threshold is one <b>contour line</b> of it — the decision boundary.</li>
+      <li><b>In 2D:</b> the score is a landscape over the features, and the threshold is one <b>contour line</b> of it — the decision boundary, like the boundary of One-Class SVM.</li>
     </ul>
     <div class="interactive">
-      <canvas id="th2d" width="600" height="400" aria-label="Two features plotted against each other; a shaded region and contour line show which records the threshold flags"></canvas>
+      <canvas id="th2d" width="600" height="400" aria-label="Two features plotted against each other; background colour shows the model output from 0 to 1, sample points show their value, and a shaded region and contour line show which records the threshold flags"></canvas>
       <div class="controls">
         <label>threshold</label><input id="th2dRange" type="range" min="1" max="99" value="90" style="width:min(18vw,240px)">
         <span class="readout" style="margin:0">
+          <span><span class="k">alarm if ≥ </span><b id="t2T" class="amb">—</b></span>
           <span><span class="k">caught </span><b id="t2TP" class="good">—</b></span>
           <span><span class="k">false alarms </span><b id="t2FP" class="amb">—</b></span>
         </span>
@@ -549,7 +651,7 @@
 </section>
 
 <!-- CH5 DIVIDER -->
-<section class="slide divider" data-notes="<b>0:37 Chapter 5.</b> ~6 min. Everything from chapters 1–4 becomes one pipeline you run in the notebook.">
+<section class="slide divider" data-notes="<b>0:39 Chapter 5.</b> ~4 min. Everything from chapters 1–4 becomes one pipeline you run in the notebook.">
   <div class="num">Chapter 5 / 5 — The lab</div>
   <h1>One pipeline, any dataset</h1>
 </section>
@@ -850,8 +952,17 @@
     pts.forEach(function(p){p.s=norm(raw(p.x,p.y));});
     var GX=Math.ceil(W/C),GY=Math.ceil(H/C),grid=[];
     for(var j=0;j<GY;j++)for(var i=0;i<GX;i++)grid.push(norm(raw(i*C+C/2,j*C+C/2)));
+    // model output 0..1 painted as a landscape, once: teal = likely normal, coral = likely anomaly
+    function ramp(p,a){return 'rgba('+Math.round(47+208*p)+','+Math.round(211-105*p)+','+Math.round(198-129*p)+','+a+')';}
+    var heat=document.createElement('canvas');heat.width=W;heat.height=H;
+    var hc=heat.getContext('2d');
+    for(j=0;j<GY;j++)for(i=0;i<GX;i++){hc.fillStyle=ramp(grid[j*GX+i]/100,0.13);hc.fillRect(i*C,j*C,C,C);}
+    // three sample points that carry their value, spread across the range
+    var samples=[3,60,97].map(function(s){return pts.reduce(function(a,b){return Math.abs(b.s-s)<Math.abs(a.s-s)?b:a;});});
+    var BX=132,BW=240,BY=H-20,BH=10;
     function draw(t){
       ctx.fillStyle='#061119';ctx.fillRect(0,0,W,H);
+      ctx.drawImage(heat,0,0);
       ctx.fillStyle='rgba(246,182,60,0.13)';
       for(var j=0;j<GY;j++)for(var i=0;i<GX;i++)if(grid[j*GX+i]>=t)ctx.fillRect(i*C,j*C,C,C);
       ctx.fillStyle='#f6b63c';                                   // contour = cells where the decision flips
@@ -867,6 +978,19 @@
       ctx.fillText('feature 1 →',W-96,H-10);ctx.save();ctx.translate(18,H-14);ctx.rotate(-Math.PI/2);ctx.fillText('feature 2 →',0,0);ctx.restore();
       ctx.fillStyle='#f6b63c';ctx.fillRect(14,15,16,2);ctx.fillText('threshold contour',36,20);
       ctx.fillStyle='rgba(246,182,60,0.35)';ctx.fillRect(176,10,12,12);ctx.fillStyle='#f6b63c';ctx.fillText('alarm region',194,20);
+      ctx.font='bold 15px Consolas';ctx.fillStyle='#ffffff';
+      samples.forEach(function(p){var s=(p.s/100).toFixed(2),lx=p.x>W-50?p.x-46:p.x+11;
+        ctx.strokeStyle='#ffffff';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(p.x,p.y,7,0,6.283);ctx.stroke();
+        ctx.strokeStyle='#061119';ctx.lineWidth=4;ctx.strokeText(s,lx,p.y+5);ctx.fillText(s,lx,p.y+5);});
+      ctx.font='12px Consolas';
+      // colour bar: the same 0..1 scale, with the threshold as a cut on it
+      var g=ctx.createLinearGradient(BX,0,BX+BW,0);g.addColorStop(0,ramp(0,1));g.addColorStop(1,ramp(1,1));
+      ctx.fillStyle='rgba(6,17,25,0.8)';ctx.fillRect(BX-96,BY-20,BW+124,36);
+      ctx.fillStyle=g;ctx.fillRect(BX,BY,BW,BH);
+      ctx.fillStyle='#89a6b1';ctx.fillText('P(anomaly)',BX-90,BY+9);ctx.fillText('0',BX-10,BY+9);ctx.fillText('1',BX+BW+4,BY+9);
+      var mx=BX+BW*t/100;
+      ctx.fillStyle='#f6b63c';ctx.fillRect(mx-1,BY-4,2,BH+8);ctx.fillText((t/100).toFixed(2),mx-14,BY-7);
+      document.getElementById('t2T').textContent=(t/100).toFixed(2);
       document.getElementById('t2TP').textContent=tp+' / '+na;
       document.getElementById('t2FP').textContent=fp;
     }
