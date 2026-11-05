@@ -175,11 +175,11 @@
   <h2>Who's teaching you today</h2>
   <div class="grid3">
     <div class="panel spk"><div class="face">ES<img src="img/profil Eduard Stan.png" alt="Eduard Stan" onerror="this.remove()"></div>
-      <h4>Eduard Stan</h4><p class="role">Data Scientist, Dell Technologies</p><p class="cred">CERN alumnus</p></div>
+      <h4>Eduard Stan</h4><p class="role">Data Scientist at Dell Technologies</p><p class="cred">Master's in AI. CERN summer student and research assistant at IFIN-HH, working on ATLAS</p></div>
     <div class="panel spk"><div class="face">OS<img src="img/profil Oana Sirbu.jpeg" alt="Oana Sîrbu" onerror="this.remove()"></div>
-      <h4>Oana Sîrbu</h4><p class="role">Data Scientist, Dell Technologies</p><p class="cred">Latest paper nominated for Best Student Paper at Interspeech 2026</p></div>
+      <h4>Oana Sîrbu</h4><p class="role">Data Scientist at Dell Technologies</p><p class="cred">Worked with gamma-ray detector data at ELI-NP. Best Student Paper nominee at Interspeech 2026</p></div>
     <div class="panel spk"><div class="face">LC<img src="img/profil Luiza Ciucu.jpeg" alt="Luiza Ciucu" onerror="this.remove()"></div>
-      <h4>Luiza Ciucu</h4><p class="role">Data Scientist, Dell Technologies</p><p class="cred">Former research assistant at DESY and CERN</p></div>
+      <h4>Luiza Ciucu</h4><p class="role">Data Scientist at Dell Technologies</p><p class="cred">DESY summer student. 4 years at CERN on ATLAS, from deep learning for particle tracking to detector operations</p></div>
   </div>
 </section>
 
@@ -201,14 +201,14 @@
   <div class="two">
     <ul>
       <li>Classify an anomaly as <b>point, contextual, or collective</b></li>
-      <li>Explain why <b>accuracy is useless</b> on imbalanced data</li>
-      <li>Place today's detectors in the <b>history</b> of the field</li>
-      <li>Train and compare <b>three classical detectors</b></li>
+      <li><b>Choose a detector</b> for your data, knowing what it assumes</li>
+      <li>Explain why <b>accuracy misleads</b> on imbalanced data</li>
+      <li>Train <b>three classical detectors</b> and compare them with <b>PR-AUC</b></li>
       <li>Tune a <b>threshold</b> to balance precision and recall</li>
     </ul>
     <div class="panel amber">
       <h3>The rule for today</h3>
-      <p>Every concept on a slide returns as <b>code</b> in the lab about 30 minutes later. Theory is here to make the lab make sense.</p>
+      <p>The detectors, metrics and thresholds return as <b>code</b> in the lab right after this talk. Theory is here to make the lab make sense.</p>
     </div>
   </div>
 </section>
@@ -410,7 +410,7 @@
     <tr><td><span class="tag t-ctx">contextual</span></td><td class="map">IF / LOF + context features · forecasting / reconstruction models</td><td>value vs. what's expected for that context (time, season, user)</td></tr>
     <tr><td><span class="tag t-col">collective</span></td><td class="map">autoencoders · sequence models</td><td>pattern over many steps</td></tr>
   </table>
-  <p class="muted" style="margin-top:2.4vh">You build the point-anomaly row in Module 1; the other two come later this week.</p>
+  <p class="muted" style="margin-top:2.4vh">You build the point-anomaly row in Module 1 and the contextual row in Module 3. The collective row is yours to explore.</p>
   <div class="panel amber" style="margin-top:2vh;align-self:flex-start"><p><b class="amb">A starting point, not a rule.</b> The right model depends on your use case and your data — the same anomaly type in two use cases can call for very different models. Benchmark on your own data.</p></div>
 </section>
 
@@ -698,9 +698,9 @@
   <h2>Takeaways</h2>
   <ul>
     <li><b>Name the anomaly first.</b> Point, contextual or collective: the type shapes everything after.</li>
-    <li><b>Every method makes an assumption.</b> From statistics to classical ML to deep learning, each era traded an assumption for flexibility.</li>
+    <li><b>Every method makes an assumption.</b> Each era traded an assumption for flexibility, and each lab detector has a weak spot.</li>
     <li><b>Types suggest a model; your data decides.</b> Use the chooser as a starting point, then benchmark on your own data.</li>
-    <li><b>Measure honestly.</b> Accuracy lies on imbalanced data. Use precision, recall, F1 and PR-AUC, and remember there is no free threshold.</li>
+    <li><b>Measure honestly.</b> Accuracy lies on imbalanced data. Compare detectors with PR-AUC, then choose a threshold with precision, recall and F1. There is no free threshold.</li>
     <li><b>One pipeline, any dataset.</b> Explore, prepare, score, threshold, evaluate: the same steps carry over to your project.</li>
   </ul>
   <p class="muted" style="margin-top:2.4vh">Later this week, a colleague hands you a project to do exactly this — on a dataset you choose.</p>
