@@ -32,15 +32,9 @@ In the student notebooks:
 
 ## The project
 
-Later in the week you receive a project that applies the course pipeline to **a dataset you choose**:
+By the end of the year (exact date to be announced), you complete a final project that applies the course pipeline to **a dataset you choose**. The topics and requirements are in a separate brief.
 
 > Explore → prepare → score → threshold → evaluate
-
-Module 2 adds three requirements:
-
-- an explicit cost model
-- savings reported next to PR-AUC
-- SHAP reason codes for one true positive, one false positive and one false negative
 
 ## Repository branches
 
