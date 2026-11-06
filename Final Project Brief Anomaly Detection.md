@@ -32,7 +32,7 @@ Pick one of these six topics or bring a different one. The datasets are starting
 
 For MAGIC, downsample the gamma class so that the signal is rare, because the file is not balanced like real data. In the LHC Olympics, use the R&D data with its labelled benchmark signal, because the challenge data has no labels.
 
-A topic outside this list needs no approval. If you are unsure whether it fits, send a short paragraph to eduard.stan@dell.com. Please do not reuse the course datasets (Credit Card Fraud, KDD Cup 1999, Sparkov, NYC taxi) as your main dataset.
+A topic outside this list needs no approval. If you are unsure whether it fits, message Eduard Stan at eduard.stan@dell.com, or talk directly to your professor. Please do not reuse the course datasets (Credit Card Fraud, KDD Cup 1999, Sparkov, NYC taxi) as your main dataset.
 
 ## Minimum requirements
 
