@@ -1,6 +1,4 @@
 *.claude/
-*build_lab.py
 *Anomaly Detection Presentation.pdf
 .venv/
-# Module 1/img/profil*
 *Speech.md
