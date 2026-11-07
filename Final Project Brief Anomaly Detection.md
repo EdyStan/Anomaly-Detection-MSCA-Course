@@ -2,18 +2,18 @@
 
 ## Overview and deadline
 
-Build and honestly evaluate an anomaly detector on a real problem, then hand in a short report and your code by the end of 2026. The exact date will be announced later.
+Build and honestly evaluate an anomaly detector on a real problem, then hand in a short report and your code by **30 December 2026, 23:59**. This deadline is fixed.
 
-The project is designed to fit around a full-time job and a PhD. You can work alone or in a pair, and you are welcome to use data from your own research or work if you are allowed to share the results.
+The project is designed to fit around a full-time job and a PhD. Each project is done individually, and you are welcome to use data from your own research or work if you are allowed to share the results.
 
 ## What to submit
 
-Submit two files: a report of 6 to 10 pages and your source code as a zip. How to send them will be announced with the deadline.
+Submit two files: a report of 6 to 10 pages and your source code as a zip. How to send them will be announced later.
 
 | Deliverable | Format | What it contains |
 | --- | --- | --- |
 | Report | PDF, in English, 6 to 10 pages including figures and excluding references, any template | The problem and its anomaly type, the data, the methods, the results, and what you would do next, including the limits of your approach |
-| Source code | One .zip named after the author(s), under 50 MB | Notebooks or scripts, a short README with the steps to run them, a requirements.txt, and the data or a link to it |
+| Source code | One .zip named after you, under 50 MB | Notebooks or scripts, a short README with the steps to run them, a requirements.txt, and the data or a link to it |
 
 If your data cannot leave your lab or company, include a small sample or a synthetic stand-in so that the code still runs, and say so in the report.
 
