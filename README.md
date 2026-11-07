@@ -32,7 +32,7 @@ In the student notebooks:
 
 ## The project
 
-By the end of the year (exact date to be announced), you complete a final project that applies the course pipeline to **a dataset you choose**. The topics and requirements are in a separate brief.
+By **30 December 2026, 23:59** (fixed deadline), you complete an individual final project that applies the course pipeline to **a dataset you choose**. The topics and requirements are in a separate brief.
 
 > Explore → prepare → score → threshold → evaluate
 
