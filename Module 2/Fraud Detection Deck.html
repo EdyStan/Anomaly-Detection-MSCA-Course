@@ -182,8 +182,8 @@
   .pipe .st.done{color:var(--trace);border-color:#9fbdf0;background:var(--panel2)}
   .pipe .st.now{background:var(--trace);border-color:var(--trace);color:#fff}
   .slide:not(.divider) .pipe{margin-top:3vh}
-  #gbCanvas,#drCanvas,#smCanvas,#cCanvas,#bCanvas{width:auto;max-width:100%}
-  #gbCanvas{height:49vh} #drCanvas,#smCanvas,#cCanvas,#bCanvas{height:45vh}
+  #gbCanvas,#drCanvas,#smCanvas,#bCanvas{width:auto;max-width:100%}
+  #gbCanvas{height:49vh} #drCanvas,#smCanvas,#bCanvas{height:45vh}
 
   /* figures */
   .fig{display:flex;justify-content:center}
@@ -377,7 +377,7 @@
   <div class="next">Now watch class weights break it</div>
 </section>
 
-<section class="slide" data-notes="<b>Weight widget.</b> The core insight. For a well-specified model, training with positive weight w multiplies the posterior odds by w. So a 0.5 cut on the weighted model equals a cut at 1/(1+w) on the true probability: class weights are threshold-moving in disguise. Drag w to 191 (the lab's n_neg/n_pos): a true 0.5% risk is reported as ~49%. Fine for ranking, but anything that consumes the number as a probability (a cost formula, a downstream system, a dashboard) is now wrong. <b>Step by step (if the room is lost).</b> (1) A weight w = 191 means every fraud counts as if it appeared 191 times: like photocopying each fraud 191 times before training. (2) Take a group where the true fraud rate is 0.5 %: 5 frauds, 995 legit per 1,000. The weighted model sees 5 × 191 = 955 frauds vs 995 legit, so it learns 955 / 1,950 ≈ 49 %. The true risk is still 0.5 %. (3) The same happens at every risk level: the odds get multiplied by w, which is the formula on the right. True 0.01 % → reported 1.9 %; 0.5 % → 49 %; 2 % → 80 %. (4) Threshold in disguise: solving p_w = 0.5 gives p = 1/(w+1) = 1/192 ≈ 0.5 %. 'Flag at 50 % on the weighted model' is the same decision as 'flag at 0.5 % on an honest model': the weight only moved the threshold; lowering the threshold would do the same, without retraining. (5) The inflation keeps the order (higher true risk → higher p_w), so the ranking and PR-AUC are unchanged (next slide: 0.87 vs 0.86). But the number is no longer a probability: in Part 3 we multiply p by the amount, and 49 % instead of 0.5 % overstates the expected loss about 100× → far too many reviews. (6) Fix: inverting the formula is exact only for an ideal model; on real boosted trees use Platt scaling on validation data (previous slide). <b>Analogy.</b> A forecaster trained on data where every rainy day was copied 191 times still knows which days are rainier (ranking OK), but says '50 % rain' on days where it rains 1 time in 200: fine for sorting days, useless for deciding on an umbrella. <b>Widget.</b> At w = 1 the red and grey curves coincide: no distortion. Drag w up: the red curve lifts above the grey one; point at true p = 0.5 %, where red reads ≈ 49 %.">
+<section class="slide" data-notes="<b>Weight widget.</b> The core insight. For a well-specified model, training with positive weight w multiplies the posterior odds by w. So a 0.5 cut on the weighted model equals a cut at 1/(1+w) on the true probability: class weights are threshold-moving in disguise. Drag w to 191 (the lab's n_neg/n_pos): a true 0.5% risk is reported as ~49%. Fine for ranking, but anything that consumes the number as a probability (a cost formula, a downstream system, a dashboard) is now wrong. <b>Step by step (if the room is lost).</b> (1) A weight w = 191 means every fraud counts as if it appeared 191 times: like photocopying each fraud 191 times before training. (2) Take a group where the true fraud rate is 0.5 %: 5 frauds, 995 legit per 1,000. The weighted model sees 5 × 191 = 955 frauds vs 995 legit, so it learns 955 / 1,950 ≈ 49 %. The true risk is still 0.5 %. (3) The same happens at every risk level: the odds get multiplied by w, which is the formula on the right. True 0.01 % → reported 1.9 %; 0.5 % → 49 %; 2 % → 80 %. (4) Threshold in disguise: solving p_w = 0.5 gives p = 1/(w+1) = 1/192 ≈ 0.5 %. 'Flag at 50 % on the weighted model' is the same decision as 'flag at 0.5 % on an honest model': the weight only moved the threshold; lowering the threshold would do the same, without retraining. (5) The inflation keeps the order (higher true risk → higher p_w), so the ranking and PR-AUC are unchanged (next slide: 0.869 vs 0.862). But the number is no longer a probability: in Part 3 we multiply p by the amount, and 49 % instead of 0.5 % overstates the expected loss about 100× → far too many reviews. (6) Fix: inverting the formula is exact only for an ideal model; on real boosted trees use Platt scaling on validation data (previous slide). <b>Analogy.</b> A forecaster trained on data where every rainy day was copied 191 times still knows which days are rainier (ranking OK), but says '50 % rain' on days where it rains 1 time in 200: fine for sorting days, useless for deciding on an umbrella. <b>Widget.</b> At w = 1 the red and grey curves coincide: no distortion. Drag w up: the red curve lifts above the grey one; point at true p = 0.5 %, where red reads ≈ 49 %.">
   <div class="chan">CLASS WEIGHTS · <b>drag the weight</b></div>
   <h2>Class weights move the threshold, and break the probability</h2>
   <div class="two" style="grid-template-columns:1.2fr .8fr">
@@ -398,11 +398,11 @@
   <div class="next">Does it show up on the lab's model?</div>
 </section>
 
-<section class="slide" data-notes="Lab preview, Part B. Read the left plot first: the dashed diagonal is perfect calibration. The class-weighted model (red) sits below it at the top end: it over-states the risk, its mean probability is 1.6 times the real fraud rate. Right: after Platt scaling on the validation set, all three curves lie on top of each other. Ranking (PR-AUC) was the same all along: 0.87, 0.86, 0.87. So on a strong learner the imbalance trick mostly moves the threshold; the value is in calibration and in the decision rule. Production default: no rebalancing (or weights) plus recalibration. SMOTE has a niche: learners that cannot take weights, like k-NN, on low-dimensional continuous data. Evidence: Elor and Averbuch-Elor 2022; van den Goorbergh et al. 2022 (JAMIA); Carriero et al. 2025 for flexible ML models: imbalance corrections harm calibration.">
+<section class="slide" data-notes="Lab preview, Part B. Read the left plot first: the dashed diagonal is perfect calibration. The class-weighted model (red) sits below it at the top end: it over-states the risk, its mean probability is 1.6 times the real fraud rate. Right: after Platt scaling on the validation set, all three curves lie on top of each other. Ranking (PR-AUC) was the same all along: 0.869, 0.862, 0.866 (the numbers in the figure legends are mean p ÷ fraud rate, not PR-AUC). So on a strong learner the imbalance trick mostly moves the threshold; the value is in calibration and in the decision rule. Production default: no rebalancing (or weights) plus recalibration. SMOTE has a niche: learners that cannot take weights, like k-NN, on low-dimensional continuous data. Evidence: Elor and Averbuch-Elor 2022; van den Goorbergh et al. 2022 (JAMIA); Carriero et al. 2025 for flexible ML models: imbalance corrections harm calibration.">
   <div class="chan">WHAT THE LAB SHOWS · <b>XGBoost, test set (H1 2020)</b></div>
   <h2>Same ranking, broken probability, and an easy repair</h2>
   <div class="fig"><img src="img/lab_calibration.svg" alt="Reliability curves before and after Platt scaling" style="max-height:49vh"></div>
-  <p style="max-width:none;margin-top:1.2vh;font-size:calc(var(--fs)*.86)">PR-AUC: <b>0.87 · 0.86 · 0.87</b>, so no information was added. <b>Production default:</b> no rebalancing (or weights) + recalibrate. SMOTE only for learners that can't take weights, such as k-NN.</p>
+  <p style="max-width:none;margin-top:1.2vh;font-size:calc(var(--fs)*.86)">PR-AUC (unweighted · class weights · SMOTE): <b>0.869 · 0.862 · 0.866</b>, so no information was added. The figure's numbers are mean p ÷ fraud rate, not PR-AUC. <b>Production default:</b> no rebalancing (or weights) + recalibrate. SMOTE only for learners that can't take weights, such as k-NN.</p>
   <div class="src">synthetic Sparkov-like data · Module 2 lab, Part B · Carriero et al. 2025 · van den Goorbergh et al. 2022</div>
   <div class="next">Your turn: two quick cases</div>
 </section>
@@ -459,28 +459,6 @@
     <div class="txn"><div><span class="k">alert A </span> <b>$1,801</b> · p = 0.30</div><div>0.30 × 1,801 = <b class="bad">$540</b> &gt; $15</div><div><b>→ review</b></div></div>
     <div class="txn"><div><span class="k">alert B </span> <b>$22</b> · p = 0.45</div><div>0.45 × 22 = <b class="good">$10</b> &lt; $15</div><div><b>→ approve</b></div></div>
     <div class="panel amber" style="padding:1.6vh 1.2vw"><p>A threshold <b>per transaction</b>: <math><mi>p</mi><mo>&gt;</mo><msub><mi>C</mi><mtext>inv</mtext></msub><mo>/</mo><mtext>amt</mtext></math>. Needs a <b>calibrated</b> p; nothing is tuned on labels.</p></div>
-  </div>
-  <div class="next">How much does it beat the F1 threshold? Let's simulate</div>
-</section>
-
-<section class="slide" data-notes="<b>Cost widget.</b> Probabilities here are calibrated by construction (labels drawn from p). Move the threshold: cost is U-shaped. The F1 optimum (dark dashed) sits well to the right of the cost optimum (red dashed). Then raise C_inv: the cost optimum moves right, the F1 optimum does not move at all, because F1 knows nothing about money. The dotted line is the Bayes rule: usually at or below the best single global threshold, with no tuning.">
-  <div class="chan">THRESHOLD vs. BUSINESS COST · <b>20,000 simulated transactions</b></div>
-  <h2>F1 doesn't know what a dollar is</h2>
-  <div class="interactive">
-    <canvas id="cCanvas" width="900" height="280"></canvas>
-    <div class="controls">
-      <label>global threshold</label><input id="cThr" type="range" min="0" max="400" value="300">
-      <label>review cost C<sub>inv</sub></label><input id="cInv" type="range" min="1" max="100" value="15"><b id="cInvV" class="amb" style="font-family:var(--mono)">$15</b>
-    </div>
-    <div class="readout">
-      <span><span class="k">t </span><b id="cT">—</b></span>
-      <span><span class="k">cost @ t </span><b id="cCost" class="amb">—</b></span>
-      <span><span class="k">F1 @ t </span><b id="cF1">—</b></span>
-      <span><span class="k">alerts </span><b id="cAl">—</b></span>
-      <span><span class="k">cost @ F1-opt </span><b id="cF1c" class="bad">—</b></span>
-      <span><span class="k">cost @ cost-opt </span><b id="cBest">—</b></span>
-      <span><span class="k">Bayes rule </span><b id="cBay" class="good">—</b></span>
-    </div>
   </div>
   <div class="next">Why no single threshold can win: put the amount on an axis</div>
 </section>
@@ -1062,44 +1040,6 @@
       if(SIM.y[k]){dTot+=SIM.amt[k];if(f)dol+=SIM.amt[k];}}
     var prec=(tp+fp)?tp/(tp+fp):0,rec=(tp+fn)?tp/(tp+fn):0;
     return {cost:c,f1:(prec&&rec)?2*prec*rec/(prec+rec):0,alerts:tp+fp,rec:rec,drec:dTot?dol/dTot:0};}
-
-  /* ---------- cost vs threshold ---------- */
-  (function(){
-    var cv=document.getElementById('cCanvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
-    var L=60,R=W-50,T=18,B=H-34,G=120,grid=[],k;
-    for(k=0;k<=G;k++)grid.push(Math.pow(10,-4+4*k/G));
-    function X(t){return L+(Math.log10(t)+4)/4*(R-L);}
-    var rT=document.getElementById('cThr'),rC=document.getElementById('cInv');
-    function draw(){
-      var cinv=+rC.value,t=Math.pow(10,-4+4*(+rT.value)/400);
-      var curve=grid.map(function(g){return simCost(function(j){return SIM.p[j]>=g;},cinv);});
-      var mx=0,iBest=0,iF1=0;curve.forEach(function(c,j){mx=Math.max(mx,c.cost);if(c.cost<curve[iBest].cost)iBest=j;if(c.f1>curve[iF1].f1)iF1=j;});
-      var bay=simCost(function(j){return SIM.p[j]*SIM.amt[j]>cinv;},cinv),now=simCost(function(j){return SIM.p[j]>=t;},cinv);
-      function Yc(v){return B-v/mx*(B-T);} function Yf(v){return B-v*(B-T);}
-      ctx.clearRect(0,0,W,H);
-      ctx.strokeStyle=C.line;ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L,B);ctx.lineTo(R,B);ctx.lineTo(R,T);ctx.stroke();
-      [-4,-3,-2,-1,0].forEach(function(e){axisText(ctx,e===0?'1':'1e'+e,X(Math.pow(10,e))-10,B+16);});
-      axisText(ctx,'cost',8,T+10,C.alarm);axisText(ctx,'F1',R+10,T+10,C.ink);axisText(ctx,'global threshold on P(fraud) (log)',R-250,B+30);
-      ctx.lineWidth=2.4;ctx.strokeStyle=C.alarm;ctx.beginPath();curve.forEach(function(c,j){var x=X(grid[j]),yy=Yc(c.cost);j?ctx.lineTo(x,yy):ctx.moveTo(x,yy);});ctx.stroke();
-      ctx.lineWidth=2;ctx.strokeStyle=C.ink;ctx.beginPath();curve.forEach(function(c,j){var x=X(grid[j]),yy=Yf(c.f1);j?ctx.lineTo(x,yy):ctx.moveTo(x,yy);});ctx.stroke();
-      ctx.setLineDash([2,4]);ctx.strokeStyle=C.trace;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(L,Yc(bay.cost));ctx.lineTo(R,Yc(bay.cost));ctx.stroke();
-      axisText(ctx,'Bayes rule (no threshold)',L+8,Yc(bay.cost)-6,C.trace);
-      ctx.setLineDash([6,4]);ctx.lineWidth=1.4;
-      ctx.strokeStyle=C.alarm;ctx.beginPath();ctx.moveTo(X(grid[iBest]),T);ctx.lineTo(X(grid[iBest]),B);ctx.stroke();
-      ctx.strokeStyle=C.ink;ctx.beginPath();ctx.moveTo(X(grid[iF1]),T);ctx.lineTo(X(grid[iF1]),B);ctx.stroke();ctx.setLineDash([]);
-      axisText(ctx,'cost-opt',X(grid[iBest])-56,B-8,C.alarm);axisText(ctx,'F1-opt',X(grid[iF1])+4,B-8,C.ink);
-      ctx.strokeStyle=C.amber;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(X(t),T);ctx.lineTo(X(t),B);ctx.stroke();
-      document.getElementById('cInvV').textContent='$'+cinv;
-      document.getElementById('cT').textContent=t<0.01?t.toExponential(1):t.toFixed(3);
-      document.getElementById('cCost').textContent=fmtUsd(now.cost);
-      document.getElementById('cF1').textContent=now.f1.toFixed(2);
-      document.getElementById('cAl').textContent=now.alerts;
-      document.getElementById('cF1c').textContent=fmtUsd(curve[iF1].cost);
-      document.getElementById('cBest').textContent=fmtUsd(curve[iBest].cost);
-      document.getElementById('cBay').textContent=fmtUsd(bay.cost);
-    }
-    rT.addEventListener('input',draw);rC.addEventListener('input',draw);draw();
-  })();
 
   /* ---------- Bayes boundary in (amount, p) ---------- */
   (function(){
